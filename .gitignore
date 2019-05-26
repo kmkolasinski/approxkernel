@@ -1,0 +1,5 @@
+*.mod
+approxkernel.egg-info
+*.a
+*.so
+
