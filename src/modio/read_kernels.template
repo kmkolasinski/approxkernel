@@ -1,0 +1,20 @@
+! SUBROUTINE read_kernels(filename, num_kernels, kernel_size, kernels)
+  CHARACTER (LEN=*), INTENT (IN) :: filename
+  INTEGER, INTENT (IN) :: num_kernels, kernel_size
+  DTYPE, DIMENSION (:, :, :), ALLOCATABLE, INTENT (OUT) :: kernels
+  DTYPE, DIMENSION (:, :), ALLOCATABLE:: tmp_kernel
+  INTEGER :: i
+
+  PRINT*, "[INFO] Reading kernels ..."
+  ALLOCATE(tmp_kernel(num_kernels * kernel_size, kernel_size))
+  IF (allocated(kernels)) deallocate(kernels)
+
+  ALLOCATE(kernels(num_kernels, kernel_size, kernel_size))
+  call read_array2d(filename, num_kernels * kernel_size, kernel_size, tmp_kernel)
+
+  do i = 1, num_kernels
+    kernels(i, :, :) = tmp_kernel((i-1)*kernel_size + 1: i*kernel_size, :)
+  end do
+
+  DEALLOCATE(tmp_kernel)
+!  END SUBROUTINE read_kernels

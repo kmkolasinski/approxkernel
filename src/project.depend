@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1541168127 source:/media/DANE/ML/CoulombML/fortran_code/conv/main.f90
+
+1541016705 source:/media/DANE/ML/CoulombML/fortran_code/conv/nn_ops.f90
+
+1541016987 source:/media/DANE/ML/CoulombML/fortran_code/conv/utils.f90
+
+1541103429 source:/media/DANE/ML/CoulombML/fortran_code/conv/modutils.f90
+
+1541163879 source:/media/DANE/ML/CoulombML/fortran_code/conv/modnnops.f90
+
+1541068778 source:/media/DANE/ML/CoulombML/fortran_code/conv/modalgs.f90
+
+1541147130 source:/media/DANE/ML/CoulombML/fortran_code/conv/modtypes.f90
+
+1541147143 source:/media/DANE/ML/CoulombML/fortran_code/conv/modconv2d.f90
+
+1541109365 source:/media/DANE/ML/CoulombML/fortran_code/conv/mkl_vsl.f90
+
+1541179200 source:/media/DANE/ML/CoulombML/fortran_code/conv/modio.f90
+
+1541151029 source:/media/DANE/ML/CoulombML/fortran_code/conv/modvslconv2d.f90
+
+1541172960 source:/media/DANE/ML/CoulombML/fortran_code/conv/modimageops.f90
+
+1541174677 source:/media/DANE/ML/CoulombML/fortran_code/conv/modapproxcoulomb.f90
+
+1541172960 source:/media/DANE/ML/CoulombML/approxcoulomb/src/modimageops.f90
+
+1541179200 source:/media/DANE/ML/CoulombML/approxcoulomb/src/modio.f90
+
+1541103429 source:/media/DANE/ML/CoulombML/approxcoulomb/src/modutils.f90
+
+1541151029 source:/media/DANE/ML/CoulombML/approxcoulomb/src/modvslconv2d.f90
+
+1541174677 source:/media/DANE/ML/CoulombML/approxcoulomb/src/modapproxcoulomb.f90
+

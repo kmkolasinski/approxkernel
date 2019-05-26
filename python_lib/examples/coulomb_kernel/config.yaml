@@ -1,0 +1,12 @@
+clear_debug_dir: true
+debug_dir: debug
+grid_config:
+  grid_size: 128
+  kernel_size: 33
+  num_scales: 4
+kernel_fn_path: kernel.py
+train_config:
+  initial_lr: 0.003
+  lr_decay: 0.6
+  num_lr_steps: 5
+  steps_per_lr: 2000

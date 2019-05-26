@@ -1,0 +1,183 @@
+#!/usr/bin/env python
+
+import argparse
+import logging
+import sys
+from importlib.machinery import SourceFileLoader
+from pathlib import Path
+from typing import Tuple
+
+import numpy as np
+import shutil
+import tensorflow as tf
+from tqdm import tqdm
+
+import approxkernel.config as cfg
+import approxkernel.data_preparation as prep
+import approxkernel.model as kernel_model
+import approxkernel.visualization as vis
+from approxkernel.data_preparation import KernelFn
+
+_LOGGER = logging.getLogger("fit_kernel")
+_LOGGER.setLevel(logging.INFO)
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+_LOGGER.addHandler(ch)
+
+
+def _plot_training_data(
+        x_sources: np.ndarray,
+        y_targets: np.ndarray,
+        kernel_fn: KernelFn,
+        save_dir: Path
+):
+    num_points = x_sources.shape[0]
+    for i in tqdm(np.linspace(0, num_points - 1, 7)):
+        i = int(i)
+        save_path = str(Path(save_dir) / f"target_cross_section_i={i}.png")
+        vis.plot_sample_cross_section(
+            x_sources[i], y_targets[i], save_path=save_path
+        )
+
+    source, target = prep.get_source_and_target_2d(
+        kernel_fn, (num_points//2, num_points//2), num_points
+    )
+    save_path = str(Path(save_dir) / f"target_2d.png")
+    vis.plot_sample_target2d(target, save_path=save_path)
+
+
+def _plot_training_results(
+        sess: tf.Session,
+        model_def: dict,
+        loss_history: list,
+        data: Tuple[np.ndarray, np.ndarray],
+        save_dir: Path
+):
+    _LOGGER.info(f"Plotting training results...")
+    save_path = str(save_dir / f"training_loss_history.png")
+    vis.plot_loss_history(loss_history, save_path)
+    kernels_1d = [sess.run(kernel)[:, 0, 0] for kernel in model_def["kernels_1d"]]
+    vis.plot_kernels1d(kernels_1d, save_dir=save_dir)
+
+    x_sources, y_targets = data
+    num_points = x_sources.shape[0]
+    for i in tqdm(np.linspace(1, num_points - 2, 7)):
+        i = int(i)
+        save_path = str(Path(save_dir) / f"model_target_prediction_i={i}.png")
+        vis.plot_train_target_comparison(
+            sess=sess, model_def=model_def,
+            source=x_sources[i], target=y_targets[i], save_path=save_path
+        )
+
+
+def main(config: cfg.Config) -> None:
+    _LOGGER.info("Generating training data...")
+
+    grid_size = config.grid_config.grid_size
+    kernel_size = config.grid_config.kernel_size
+    num_scales = config.grid_config.num_scales
+
+    model_module = SourceFileLoader(
+        "kernel_module", config.kernel_fn_path
+    ).load_module()
+    try:
+        kernel_fn = model_module.kernel2d_fn
+    except:
+        _LOGGER.error(
+            f"File {config.kernel_fn_path} does not contain `kernel2d_fn`. "
+            f"Exiting..."
+        )
+        return None
+
+    x_sources, y_targets = prep.create_training_data(grid_size, kernel_fn)
+
+    debug_dir = None
+    if config.debug_dir is not None:
+        debug_dir = Path(config.debug_dir)
+        _LOGGER.info(f"Plotting debug data to {debug_dir}")
+        if not debug_dir.exists():
+            debug_dir.mkdir()
+        elif config.clear_debug_dir:
+            shutil.rmtree(str(debug_dir))
+            debug_dir.mkdir()
+
+        _plot_training_data(x_sources, y_targets, kernel_fn, debug_dir)
+
+    sess = tf.Session()
+    model_def = kernel_model.define_model(
+        num_scales=num_scales,
+        kernel_size=kernel_size,
+        grid_size=grid_size
+    )
+
+    loss_history = kernel_model.train_model(
+        sess=sess,
+        model_def=model_def,
+        data=(x_sources, y_targets),
+        initial_lr=config.train_config.initial_lr,
+        num_lr_steps=config.train_config.num_lr_steps,
+        lr_decay=config.train_config.lr_decay,
+        steps_per_lr=config.train_config.steps_per_lr
+    )
+    _LOGGER.info("Training done...")
+
+    if debug_dir is not None:
+        _plot_training_results(
+            sess=sess,
+            model_def=model_def,
+            data=(x_sources, y_targets),
+            loss_history=loss_history,
+            save_dir=debug_dir
+        )
+
+    kernels_1d = [
+        sess.run(kernel)[:, 0, 0] for kernel in model_def["kernels_1d"]
+    ]
+    kernels_2d = prep.convert_1d_kernel_to_2d(
+        kernels_1d=kernels_1d,
+        kernel_size=kernel_size,
+        kernel_fn=kernel_fn
+    )
+    if debug_dir is not None:
+        vis.plot_kernels2d(kernels_2d, save_dir=debug_dir)
+
+    final_loss = f"{loss_history[-1]:10.4f}".replace(" ", "")
+    output_name = f"kernels_scales={num_scales}_size={kernel_size}" \
+                  f"_grid={grid_size}_loss={final_loss}.txt"
+
+    _LOGGER.info(f"Saving kernels to: {output_name}")
+    np.savetxt(output_name, np.concatenate(kernels_2d))
+    # this folder is created by python, we can remove it to clean CWD
+    if Path("__pycache__").exists():
+        shutil.rmtree("__pycache__")
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description='Fit kernels')
+    parser.add_argument('--config',
+                        required=True,
+                        help='Path to config.yml')
+    parser.add_argument('--generate',
+                        default=False,
+                        action="store_true",
+                        help='Generate example config with default values')
+
+    args = parser.parse_args()
+
+    if args.generate:
+
+        if Path(args.config).exists():
+            _LOGGER.error(
+                f"Config {args.config} exists. Remove this file or set "
+                f"different config name and run this script again."
+            )
+        else:
+            _LOGGER.info(f"Generating example config file: {args.config}")
+            example_config = cfg.Config.get_dummy_config().to_yaml(args.config)
+
+    else:
+        config = cfg.Config.from_yaml(args.config)
+        main(config)

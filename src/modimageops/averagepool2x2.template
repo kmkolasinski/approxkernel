@@ -1,0 +1,31 @@
+!  SUBROUTINE averagepool2x2(input, output, dynamic)
+!    REAL(4), DIMENSION(:, :), INTENT(IN) :: input
+!    REAL(4), DIMENSION(:, :), ALLOCATABLE, INTENT(INOUT) :: output
+!    LOGICAL, OPTIONAL :: dynamic
+  LOGICAL :: runtime_realloc
+  INTEGER, DIMENSION(2) :: output_size
+  INTEGER :: i, j, ii, jj
+
+  runtime_realloc = .true.
+  IF (PRESENT(dynamic)) runtime_realloc = dynamic
+
+  CALL check_inputs(SHAPE(input), SHAPE(output), runtime_realloc)
+  output_size = SHAPE(input) / 2
+
+  IF (runtime_realloc) THEN
+    IF(ALLOCATED(output)) DEALLOCATE(output)
+    ALLOCATE(output(output_size(1), output_size(2)))
+  END IF
+
+  DO j = 1, output_size(2)
+    DO i = 1, output_size(1)
+      ii = 2 * i - 1
+      jj = 2 * j - 1
+      output(i, j) = (&
+        input(ii, jj) + input(ii+1, jj) + &
+        input(ii+1, jj+1) + input(ii, jj+1) &
+        )/4
+    END DO
+  END DO
+
+!  END SUBROUTINE

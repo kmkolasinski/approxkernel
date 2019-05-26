@@ -1,0 +1,18 @@
+!  SUBROUTINE resizebilinearinplace(input, target_shape)
+!    REAL(4), DIMENSION(:, :), ALLOCATABLE, INTENT(INOUT) :: input
+!    INTEGER, DIMENSION(2) :: target_shape
+  DTYPE, DIMENSION(:, :), ALLOCATABLE :: output
+  INTEGER :: target_width, target_height
+
+  target_width = target_shape(1)
+  target_height = target_shape(2)
+
+  ALLOCATE(output(target_width, target_height))
+  CALL resizebilinear(input, output)
+
+  DEALLOCATE(input)
+  ALLOCATE(input(target_width, target_height))
+  input = output
+
+  DEALLOCATE(output)
+!  END SUBROUTINE

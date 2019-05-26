@@ -1,0 +1,17 @@
+!  SUBROUTINE read_kernel(filename, n, kernel)
+  CHARACTER (LEN=*), INTENT (IN) :: filename
+  INTEGER, INTENT (IN) :: n
+  DTYPE, DIMENSION (:, :), ALLOCATABLE, INTENT (OUT) :: kernel
+  INTEGER :: unitnum
+  INTEGER :: i, j
+
+  IF (ALLOCATED(kernel)) DEALLOCATE(kernel)
+  ALLOCATE(kernel(n, n))
+  PRINT*, "[INFO] Reading kernel: ", FileName
+  OPEN (newunit=unitnum, FILE=filename, STATUS='old', ACTION='read')
+  DO i=1, n
+    READ (unitnum, *) (kernel (i, j), j=1, n)
+  END DO
+  CLOSE (unitnum)
+!  END SUBROUTINE read_kernel
+

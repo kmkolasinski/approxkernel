@@ -1,0 +1,17 @@
+! Read matrix from file
+! SUBROUTINE read_array2d(FileName, NumRows, NumCols, Array)
+
+  CHARACTER (LEN=*), INTENT (IN) :: FileName
+  INTEGER, INTENT (IN) :: NumRows, NumCols
+  DTYPE, DIMENSION (1:NumRows, 1:NumCols), INTENT (OUT) :: Array
+  INTEGER :: i, j
+  INTEGER :: UnitNum
+  PRINT("(A, A)"), " [INFO] Reading array2d: ", FileName
+  OPEN (newunit=UnitNum, FILE=FileName, STATUS='old', ACTION='read')
+  DO i=1, NumRows
+    READ (UnitNum, *) (Array (i, j), j=1,NumCols)
+  END DO
+  CLOSE (UnitNum)
+
+!END SUBROUTINE read_array2d
+

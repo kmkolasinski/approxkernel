@@ -1,0 +1,8 @@
+  ! SUBROUTINE deletevslsconv2d(this)
+  !  type(VSLSConv2D) :: this
+  IF(ALLOCATED(this%output)) THEN
+    DEALLOCATE(this%output)
+    DEALLOCATE(this%kernel)
+    CALL vslconvdeletetask2d(this%params%task)
+  ENDIF
+  ! END SUBROUTINE deletevslsconv2d

@@ -1,0 +1,15 @@
+!INTEGER, PARAMETER :: dtype = 4
+!REAL(KIND=dtype), DIMENSION(grid_size, grid_size) :: input_x, output_x
+!REAL(KIND=dtype), DIMENSION(4, kernel_size, kernel_size) :: kernels
+!TYPE(ApproxSKernelData) :: coulomb
+kernels = SQRT(3.0)
+output_x = 0.0
+
+CALL initapproxkernel(coulomb, kernels=kernels, input_shape=[grid_size, grid_size])
+CALL execapproxkernel(coulomb, input_x, output_x)
+
+CALL reset_clock()
+DO s = 1, num_samples
+  CALL execapproxkernel(coulomb, input_x, output_x)
+END DO
+CALL deleteapproxkernel(coulomb)

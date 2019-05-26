@@ -1,0 +1,29 @@
+!  SUBROUTINE save_array2d(filename,array,asMatrix)
+    CHARACTER(*) :: filename
+    DTYPE      :: array(:,:)
+    LOGICAL,OPTIONAL :: asMatrix
+    INTEGER :: i,j,nx,ny,munit
+    LOGICAL :: bMat
+    CHARACTER(LEN=30) :: rowfmt
+
+    PRINT("(A, A)"), "[INFO] Saving array2d (this may take a while): ", filename
+    nx = SIZE(array,1)
+    ny = SIZE(array,2)
+    OPEN(newunit=munit,FILE=filename)
+    bMat = .false.
+    IF(PRESENT(asMatrix)) bMat = asMatrix
+    WRITE(rowfmt,'(A,I10,A)') '(',ny,'(e16.6))'
+    IF(bMat)THEN ! as matrix
+      DO i = 1 , nx
+        WRITE(munit,FMT=rowfmt) (array(i,j), j=1,ny)
+      ENDDO
+    ELSE ! regular XYZ grid
+      DO i = 1 , nx
+        DO j = 1 , ny
+          WRITE(munit,*),i,j,array(i,j)
+        ENDDO
+        WRITE(munit,*),""
+      ENDDO
+    ENDIF
+    CLOSE(munit)
+!  END SUBROUTINE save_array2d
