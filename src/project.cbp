@@ -89,6 +89,7 @@
 		<Unit filename="../tests/test_integral_openmp.f90" />
 		<Unit filename="makefile" />
 		<Unit filename="mkl_vsl.f90" />
+		<Unit filename="modapproxkernel1d.f90" />
 		<Unit filename="modapproxkernel1d/deleteapproxkernel.template" />
 		<Unit filename="modapproxkernel1d/execapproxkernel.template" />
 		<Unit filename="modapproxkernel1d/initapproxkernel.template" />
@@ -104,8 +105,8 @@
 		<Unit filename="modimageops2d.f90" />
 		<Unit filename="modimageops2d/averagepool2x2.template" />
 		<Unit filename="modimageops2d/averagepool2x2inplace.template" />
-		<Unit filename="modimageops2d/resizebilinear.template" />
-		<Unit filename="modimageops2d/resizebilinearinplace.template" />
+		<Unit filename="modimageops2d/resizebilinear2d.template" />
+		<Unit filename="modimageops2d/resizebilinearinplace2d.template" />
 		<Unit filename="modio.f90" />
 		<Unit filename="modio/read_array2d.template" />
 		<Unit filename="modio/read_kernel.template" />
