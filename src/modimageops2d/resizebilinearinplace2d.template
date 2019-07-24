@@ -8,7 +8,7 @@
   target_height = target_shape(2)
 
   ALLOCATE(output(target_width, target_height))
-  CALL resizebilinear(input, output)
+  CALL resizebilinear2d(input, output)
 
   DEALLOCATE(input)
   ALLOCATE(input(target_width, target_height))

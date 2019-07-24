@@ -10,7 +10,7 @@
   IF (allocated(kernels)) deallocate(kernels)
 
   ALLOCATE(kernels(num_kernels, kernel_size, kernel_size))
-  call read_array2d(filename, num_kernels * kernel_size, kernel_size, tmp_kernel)
+  call read_array_2d(filename, num_kernels * kernel_size, kernel_size, tmp_kernel)
 
   do i = 1, num_kernels
     kernels(i, :, :) = tmp_kernel((i-1)*kernel_size + 1: i*kernel_size, :)

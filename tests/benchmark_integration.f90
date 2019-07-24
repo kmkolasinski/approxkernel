@@ -1,14 +1,14 @@
 PROGRAM example
   USE modutils
   USE modio
-  USE modapproxkernel
+  USE modapproxkernel2d
   IMPLICIT NONE
   INTEGER, PARAMETER :: dtype = 4,  num_samples = 200
 
   REAL(KIND=dtype), DIMENSION(:, :), ALLOCATABLE :: input_x, output_x
   REAL(KIND=dtype), DIMENSION(:, :, :), ALLOCATABLE :: kernels
 
-  TYPE(ApproxSKernelData) :: coulomb
+  TYPE(ApproxSKernel2D) :: coulomb
 
 
   call run_benchmark("outputs/benchmark_w_smoothing.txt", .true.)
@@ -37,13 +37,13 @@ CONTAINS
 
         call reset_clock()
         call allocate_data(grid_size, kernel_size, num_kernels, use_smoothing)
-        call execapproxkernel(coulomb, input_x, output_x)
+        call execapproxkernel2d(coulomb, input_x, output_x)
         time_initialization = get_clock()
         print*, "Initialization time:", time_initialization * 1000, "[ms]"
 
         call reset_clock()
         do s = 1, num_samples
-          call execapproxkernel(coulomb, input_x, output_x)
+          call execapproxkernel2d(coulomb, input_x, output_x)
         end do
         time_execution = get_clock() / num_samples
         print*, "Time execution:", time_execution * 1000, "[ms]"
@@ -68,7 +68,7 @@ CONTAINS
     input_x = SQRT(2.0)
     output_x = 0.0
 
-    CALL initapproxkernel(coulomb, &
+    CALL initapproxkernel2d(coulomb, &
         kernels=kernels, &
         input_shape=[grid_size, grid_size], &
         use_smoothing=use_smoothing)
@@ -76,7 +76,7 @@ CONTAINS
   END SUBROUTINE
 
   SUBROUTINE deallocate_data()
-    CALL deleteapproxkernel(coulomb)
+    CALL deleteapproxkernel2d(coulomb)
     DEALLOCATE(kernels)
     DEALLOCATE(input_x)
     DEALLOCATE(output_x)

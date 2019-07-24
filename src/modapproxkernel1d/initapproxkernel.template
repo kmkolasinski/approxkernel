@@ -1,0 +1,41 @@
+!  SUBROUTINE initapproxskernel1d(kernel_obj, kernels, input_shape, use_smoothing)
+!    TYPE(ApproxSKernelD) :: kernel_obj
+!    REAL(KIND=4), DIMENSION(:, :) :: kernels
+!    INTEGER, DIMENSION(1) :: input_shape
+!    LOGICAL, OPTIONAL :: use_smoothing
+
+  INTEGER, DIMENSION(2) :: kernels_shape
+  INTEGER, DIMENSION(1) :: scale_shape
+  DTYPE, DIMENSION(3) :: smoothing_kernel
+  INTEGER :: i
+  CALL deleteapproxkernel1d(kernel_obj)
+
+  kernels_shape = SHAPE(kernels)
+  kernel_obj%num_scales = kernels_shape(1)
+  kernel_obj%input_shape = input_shape
+  kernel_obj%use_smoothing = .true.
+  IF (PRESENT(use_smoothing)) kernel_obj%use_smoothing = use_smoothing
+
+  smoothing_kernel = [0.27901,	0.44198,	0.27901]
+
+  ALLOCATE(kernel_obj%kernels_convs(kernel_obj%num_scales))
+  ALLOCATE(kernel_obj%smoothing_convs(kernel_obj%num_scales))
+  ALLOCATE(kernel_obj%outputs(kernel_obj%num_scales))
+
+  PRINT*,"[INFO] Initializing approximate Kernel1D for N=", kernel_obj%num_scales
+  PRINT*," * Input shape  :", input_shape
+  PRINT*," * Kernels shape:", kernels_shape
+  PRINT*," * Num scales   :", kernel_obj%num_scales
+  PRINT*," * Smoothing    :", kernel_obj%use_smoothing
+
+  DO i = 1, kernel_obj%num_scales
+    scale_shape = input_shape / 2**(i - 1)
+    PRINT*, i ," => Initializing scale: ", scale_shape
+    CALL initvslconv1d(kernel_obj%kernels_convs(i), kernels(i, :), scale_shape(1))
+    ! conv3x3 should be computed with direct method, FFT will be slower
+    CALL initvslconv1d(kernel_obj%smoothing_convs(i), smoothing_kernel, &
+                        scale_shape(1), mode=VSL_CONV_MODE_DIRECT)
+    CALL allocate_array1d(kernel_obj%outputs(i), scale_shape)
+  END DO
+
+!  END SUBROUTINE

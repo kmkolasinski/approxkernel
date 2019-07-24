@@ -83,10 +83,10 @@ def main(config: cfg.Config) -> None:
         "kernel_module", config.kernel_fn_path
     ).load_module()
     try:
-        kernel_fn = model_module.kernel2d_fn
+        kernel_fn = model_module.kernel_fn
     except:
         _LOGGER.error(
-            f"File {config.kernel_fn_path} does not contain `kernel2d_fn`. "
+            f"File {config.kernel_fn_path} does not contain `kernel_fn`. "
             f"Exiting..."
         )
         return None
@@ -144,11 +144,13 @@ def main(config: cfg.Config) -> None:
         vis.plot_kernels2d(kernels_2d, save_dir=debug_dir)
 
     final_loss = f"{loss_history[-1]:10.4f}".replace(" ", "")
-    output_name = f"kernels_scales={num_scales}_size={kernel_size}" \
+    output_name = f"kernels_2D_scales={num_scales}_size={kernel_size}" \
                   f"_grid={grid_size}_loss={final_loss}.txt"
 
     _LOGGER.info(f"Saving kernels to: {output_name}")
     np.savetxt(output_name, np.concatenate(kernels_2d))
+    np.savetxt(output_name.replace("2D", "1D"), np.array(kernels_1d))
+
     # this folder is created by python, we can remove it to clean CWD
     if Path("__pycache__").exists():
         shutil.rmtree("__pycache__")
@@ -158,7 +160,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Fit kernels')
     parser.add_argument('--config',
-                        required=True,
+                        default="config.yml",
                         help='Path to config.yml')
     parser.add_argument('--generate',
                         default=False,

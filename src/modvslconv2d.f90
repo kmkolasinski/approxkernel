@@ -10,6 +10,7 @@ MODULE modvslconv2d
     INTEGER :: padding, mode
   ENDTYPE VSLConv2DParams
 
+  PUBLIC :: VSLConv2DParams
   ! stride (1, 1) padding SAME
   ! output of the convolution with padding
   TYPE VSLSConv2D

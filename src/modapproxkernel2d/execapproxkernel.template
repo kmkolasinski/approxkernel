@@ -26,7 +26,7 @@
       stop -1
     end if
     ! same as: h' = resize(h, shape(input))
-    CALL resizebilinear(kernel_obj%outputs(s)%array, tmp_output)
+    CALL resizebilinear2d(kernel_obj%outputs(s)%array, tmp_output)
     ! output +=  h'
     output = output + tmp_output
 

@@ -1,7 +1,7 @@
 _epsilon = 1e-6
 
 
-def kernel2d_fn(r: float) -> float:
+def kernel_fn(r: float) -> float:
     """Example implementation of the coulomb 2D kernel
 
             U(r) = alpha / |r*dx + epsilon|

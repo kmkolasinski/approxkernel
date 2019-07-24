@@ -1,0 +1,13 @@
+!SUBROUTINE averagepool2inplace(input)
+!  REAL(4), DIMENSION(:, :), ALLOCATABLE :: input
+  DTYPE, DIMENSION(:), ALLOCATABLE :: output
+  INTEGER, DIMENSION(1) :: tmp_shape
+
+  CALL averagepool2(input, output, dynamic=.true.)
+
+  tmp_shape = SHAPE(output)
+  DEALLOCATE(input)
+  ALLOCATE(input(tmp_shape(1)))
+  input = output
+  DEALLOCATE(output)
+!END SUBROUTINE

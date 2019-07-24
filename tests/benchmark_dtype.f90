@@ -1,7 +1,7 @@
 PROGRAM example
   USE modutils
   USE modio
-  USE modapproxkernel
+  USE modapproxkernel2d
   IMPLICIT NONE
   INTEGER :: num_samples = 500
   INTEGER, PARAMETER :: grid_size = 128, kernel_size = 31, num_kernels = 6
@@ -18,7 +18,7 @@ CONTAINS
     INTEGER, PARAMETER :: dtype = 4
     REAL(KIND=dtype), DIMENSION(grid_size, grid_size) :: input_x, output_x
     REAL(KIND=dtype), DIMENSION(num_kernels, kernel_size, kernel_size) :: kernels
-    TYPE(ApproxSKernelData) :: coulomb
+    TYPE(ApproxSKernel2D) :: coulomb
     INTEGER :: s
 
     input_x = SQRT(2.0)
@@ -31,7 +31,7 @@ CONTAINS
     INTEGER, PARAMETER :: dtype = 8
     REAL(KIND=dtype), DIMENSION(grid_size, grid_size) :: input_x, output_x
     REAL(KIND=dtype), DIMENSION(num_kernels, kernel_size, kernel_size) :: kernels
-    TYPE(ApproxDKernelData) :: coulomb
+    TYPE(ApproxDKernel2D) :: coulomb
     INTEGER :: s
 
     input_x = SQRT(2.0)
@@ -43,7 +43,7 @@ CONTAINS
     INTEGER, PARAMETER :: dtype = 4
     COMPLEX(KIND=dtype), DIMENSION(grid_size, grid_size) :: input_x, output_x
     COMPLEX(KIND=dtype), DIMENSION(num_kernels, kernel_size, kernel_size) :: kernels
-    TYPE(ApproxCKernelData) :: coulomb
+    TYPE(ApproxCKernel2D) :: coulomb
     INTEGER :: s
 
     input_x = SQRT(2.0) * CMPLX(1.0, 1.0)
@@ -55,7 +55,7 @@ CONTAINS
     INTEGER, PARAMETER :: dtype = 8
     COMPLEX(KIND=dtype), DIMENSION(grid_size, grid_size) :: input_x, output_x
     COMPLEX(KIND=dtype), DIMENSION(num_kernels, kernel_size, kernel_size) :: kernels
-    TYPE(ApproxZKernelData) :: coulomb
+    TYPE(ApproxZKernel2D) :: coulomb
     INTEGER :: s
 
     input_x = SQRT(2.0) * CMPLX(1.0, 1.0)
@@ -67,7 +67,7 @@ CONTAINS
     INTEGER, PARAMETER :: dtype = 8
     COMPLEX(KIND=dtype), DIMENSION(grid_size, grid_size) :: input_x, output_x
     REAL(KIND=dtype), DIMENSION(num_kernels, kernel_size, kernel_size) :: kernels
-    TYPE(ApproxZKernelData) :: coulomb
+    TYPE(ApproxZKernel2D) :: coulomb
     INTEGER :: s
 
     input_x = SQRT(2.0) * CMPLX(1.0, 1.0)

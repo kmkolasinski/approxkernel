@@ -1,7 +1,7 @@
 import math
 
 
-def kernel2d_fn(r: float) -> float:
+def kernel_fn(r: float) -> float:
     """Some more complicated kernel function
 
     Args:

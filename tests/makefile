@@ -5,11 +5,14 @@ all: example_run \
 		test_complex_demo \
 		benchmark_dtype \
 		complex_coulomb_kernel2d_demo \
-		test_integral_openmp
+		test_integral_openmp \
+		example_run_1d \
+		test_conv1d test_imageops1d
 
 
 run:
 	./example_run
+	./example_run_1d
 	./test_coulomb_kernel
 	./benchmark_integration
 	./coulomb_kernel2d_demo
@@ -17,6 +20,8 @@ run:
 	./benchmark_dtype
 	./complex_coulomb_kernel2d_demo
 	./test_integral_openmp
+	./test_conv1d
+	./test_imageops1d
 
 
 .PHONY: run clean
@@ -43,6 +48,15 @@ BUILD_F90_OBJECTS=$(patsubst %.o,$(BUILD_DIR)%.o,$(F90_OBJECTS))
 example_run: example_run.f90
 	$(FF) $(FOPT) -I../include/  example_run.f90 $(LDFLAGS) -o $@
 
+example_run_1d: example_run_1d.f90
+	$(FF) $(FOPT) -I../include/  example_run_1d.f90 $(LDFLAGS) -o $@
+
+test_conv1d: test_conv1d.f90
+	$(FF) $(FOPT) -I../include/  test_conv1d.f90 $(LDFLAGS) -o $@
+
+test_imageops1d: test_imageops1d.f90
+	$(FF) $(FOPT) -I../include/  test_imageops1d.f90 $(LDFLAGS) -o $@
+
 test_coulomb_kernel: test_coulomb_kernel.f90
 	$(FF) $(FOPT) -I../include/  test_coulomb_kernel.f90 $(LDFLAGS) -o $@
 
@@ -65,10 +79,9 @@ test_integral_openmp: test_integral_openmp.f90
 	$(FF) $(FOPT) -I../include/  test_integral_openmp.f90  -mkl ../lib/libcoulomb.a  -warn all -openmp  -o $@
 
 
-
 clean:
 	rm -f *.txt *.dat  *.xml *.png *.pdf fort.*  2> /dev/null
 	rm -f outputs/*.txt outputs/coulomb_kernel/*.txt 2> /dev/null
-	rm -f example_run test_coulomb_kernel benchmark_integration coulomb_kernel2d_demo \
+	rm -f example_run example_run_1d test_coulomb_kernel benchmark_integration coulomb_kernel2d_demo \
 			test_complex_demo benchmark_dtype complex_coulomb_kernel2d_demo \
-			test_integral_openmp 2> /dev/null
+			test_integral_openmp test_conv1d test_imageops1d 2> /dev/null

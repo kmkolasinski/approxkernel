@@ -1,0 +1,26 @@
+! SUBROUTINE execvslsconv1d(this, input, output)
+! type(VSLSConv1D), TARGET :: this
+! REAL(KIND=4), DIMENSION(:) :: input, output
+  TYPE(VSLConv1DParams), POINTER :: params
+  INTEGER :: info, padding
+
+  params => this%params
+  padding = params%padding + 1
+
+  if (any(shape(input) /= shape(output))) then
+    print"(A, 2i6, A, 2i6, A)","[ERROR] execvslconv1d: Input (",shape(input),&
+           ") and output (",shape(output),") arrays must have the same shape."
+    STOP -1
+  end if
+
+  if (any(shape(input) /= params%xshape)) then
+    print"(A, 2i6, A, 2i6, A, A, 2i, A)","[ERROR] execvslconv1d: Input (",shape(input),&
+           ") and output (",shape(output),") arrays must have the same ", &
+           "shape as VSLCONV1D expected input shape (", params%xshape,")"
+    STOP -1
+  end if
+
+  info = vslconvexecx1d(params%task, input, params%xstride, this%output, params%ystride)
+  output = this%output(padding: params%xshape(1) + padding)
+
+! END SUBROUTINE

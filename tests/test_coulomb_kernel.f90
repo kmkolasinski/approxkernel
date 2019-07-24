@@ -1,7 +1,7 @@
 PROGRAM example
   USE modutils
   USE modio
-  USE modapproxkernel
+  USE modapproxkernel2d
   IMPLICIT NONE
   INTEGER, PARAMETER :: dtype = 8
   INTEGER, PARAMETER :: width = 96, height = 96
@@ -9,7 +9,7 @@ PROGRAM example
   REAL(KIND=dtype), DIMENSION(width, height) :: input_x, output_x, exact_output_x
   REAL(KIND=dtype), DIMENSION(:, :, :), ALLOCATABLE :: kernels
 
-  TYPE(ApproxDKernelData) :: coulomb
+  TYPE(ApproxDKernel2D) :: coulomb
   INTEGER :: i, j
 
   CALL RANDOM_NUMBER(input_x)
@@ -19,13 +19,13 @@ PROGRAM example
   input_x(1 * width / 4, height / 2) = +1.5
   input_x(3 * width / 4, height / 2) = +1.5
 
-  CALL read_kernels("resources/coulomb_kernel/trained_kernels.txt", 4, 33, kernels)
-  CALL initapproxkernel(coulomb, kernels=kernels, input_shape=[width, height], use_smoothing=.false.)
+  CALL read_kernels_2d("resources/coulomb_kernel/trained_kernels.txt", 4, 33, kernels)
+  CALL initapproxkernel2d(coulomb, kernels=kernels, input_shape=[width, height], use_smoothing=.false.)
   PRINT*,"Running approximated integral"
   ! first run for initialization (it will take longer, then next one)
-  CALL execapproxkernel(coulomb, input_x, output_x)
+  CALL execapproxkernel2d(coulomb, input_x, output_x)
   CALL reset_clock()
-  CALL execapproxkernel(coulomb, input_x, output_x)
+  CALL execapproxkernel2d(coulomb, input_x, output_x)
   PRINT*,"Time approx:", get_clock() * 1000, "[ms]"
   PRINT*,"Running exact integral (naive approach)"
   CALL reset_clock()
@@ -33,11 +33,11 @@ PROGRAM example
   PRINT*,"Time naive          :", get_clock() * 1000, "[ms]"
   PRINT*,"Mean absolute error :", SUM(ABS(output_x - exact_output_x)) / width / height
 
-  CALL save_array2d("outputs/coulomb_kernel/output_coulomb_approx.txt", output_x)
-  CALL save_array2d("outputs/coulomb_kernel/output_coulomb_exact.txt", exact_output_x)
-  CALL save_array2d("outputs/coulomb_kernel/output_coulomb_diff.txt", output_x - exact_output_x)
+  CALL save_array_2d("outputs/coulomb_kernel/output_coulomb_approx.txt", output_x)
+  CALL save_array_2d("outputs/coulomb_kernel/output_coulomb_exact.txt", exact_output_x)
+  CALL save_array_2d("outputs/coulomb_kernel/output_coulomb_diff.txt", output_x - exact_output_x)
 
-  CALL deleteapproxkernel(coulomb)
+  CALL deleteapproxkernel2d(coulomb)
   DEALLOCATE(kernels)
 
 CONTAINS

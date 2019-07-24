@@ -59,7 +59,7 @@ def plot_kernels1d(kernels_1d: list, save_dir: Path, figsize=(10, 5)):
         plt.title(f"Kernel for scale {s}")
         plt.plot(kernel, "-", label=f"k={s}")
         plt.legend()
-        plt.savefig(save_dir / f"trained_kernel_scale={s}.png")
+        plt.savefig(str(save_dir / f"trained_kernel_scale={s}.png"))
         plt.close()
 
     plt.figure(figsize=figsize)
@@ -67,7 +67,7 @@ def plot_kernels1d(kernels_1d: list, save_dir: Path, figsize=(10, 5)):
     for s, kernel in enumerate(kernels_1d):
         plt.plot(kernel / kernels_1d[0].max(), "o-", label=f"k={s}")
     plt.legend()
-    plt.savefig(save_dir / f"trained_kernels_normalized.png")
+    plt.savefig(str(save_dir / f"trained_kernels_normalized.png"))
     plt.close()
 
 

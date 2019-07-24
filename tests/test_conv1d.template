@@ -1,0 +1,28 @@
+    INTEGER, PARAMETER :: kernel_size = 3
+    INTEGER, PARAMETER :: width = 8
+    DTYPE, DIMENSION(width) :: input_x
+    DTYPE, DIMENSION(width) :: output_x, expected_output_x
+    KTYPE, DIMENSION(kernel_size) :: kernel
+    INTEGER :: i, num_samples
+    REAL(8) abs_error
+
+    print*,"[INFO] Running test for: ", conv_type
+
+    num_samples = 100
+    input_x = 1
+    kernel = 1
+
+    CALL initvslconv1d(conv1d, kernel, width)
+    CALL execvslconv1d(conv1d, input_x, output_x)
+
+    expected_output_x = (/ 2, 3, 3, 3, 3, 3, 3, 2 /)
+
+    DO i = 1, num_samples
+      CALL execvslconv1d(conv1d, input_x, output_x)
+    END DO
+    abs_error = sum(abs(output_x - expected_output_x))
+    if (abs_error > 1e-10) then
+      print*,"[ERROR] Conv1D calcuation error:", abs_error
+      stop(-1)
+    endif
+    CALL deletevslconv1d(conv1d)

@@ -1,0 +1,19 @@
+!SUBROUTINE deleteapproxskernel(kernel_obj)
+!  TYPE(ApproxSKernelData) :: kernel_obj
+
+  INTEGER :: i
+  IF (ALLOCATED(kernel_obj%kernels_convs)) THEN
+    DO i = 1, kernel_obj%num_scales
+      CALL deallocate_array2d(kernel_obj%outputs(i))
+      CALL deletevslconv2d(kernel_obj%kernels_convs(i))
+      CALL deletevslconv2d(kernel_obj%smoothing_convs(i))
+    END DO
+
+    kernel_obj%num_scales = 0
+    DEALLOCATE(kernel_obj%kernels_convs)
+    DEALLOCATE(kernel_obj%smoothing_convs)
+    DEALLOCATE(kernel_obj%outputs)
+
+  END IF
+!END SUBROUTINE
+

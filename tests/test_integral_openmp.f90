@@ -1,13 +1,13 @@
 PROGRAM intTest
   USE modutils
   USE modio
-  USE modapproxkernel
+  USE modapproxkernel2d
   USE omp_lib
   IMPLICIT NONE
 
   INTEGER,PARAMETER :: width = 128, height = 128
   DOUBLE PRECISION, PARAMETER :: M_PI = 4*ATAN(1.0d0)
-  TYPE(approxzkerneldata), SAVE :: coulomb
+  TYPE(ApproxZKernel2D), SAVE :: coulomb
   DOUBLE PRECISION, DIMENSION(:, :, :), ALLOCATABLE :: kernels
   INTEGER::num_threads,thread_id,i
   COMPLEX*16::expected_value, current_value
@@ -23,7 +23,7 @@ PROGRAM intTest
   !$OMP CRITICAL
   thread_id=omp_get_thread_num()
 
-  CALL read_kernels(&
+  CALL read_kernels_2d(&
     "resources/coulomb2d_kernel/kernels_scales=4_size=33_grid=128.txt", &
     num_kernels=4, kernel_size=33, kernels=kernels)
 
@@ -31,7 +31,7 @@ PROGRAM intTest
   ! of eatch thread
   kernels = kernels * (thread_id + 1)
 
-  CALL initapproxkernel(coulomb, kernels=kernels, input_shape=[width, height])
+  CALL initapproxkernel2d(coulomb, kernels=kernels, input_shape=[width, height])
   expected_value = compute_rho(width, height, coulomb, thread_id)
 
   !$OMP ENDCRITICAL
@@ -48,14 +48,14 @@ PROGRAM intTest
 
   !$OMP BARRIER
   WRITE(*,*) "Memory deallocation, thread:",thread_id
-  CALL deleteapproxkernel(coulomb)
+  CALL deleteapproxkernel2d(coulomb)
   !$OMP END PARALLEL
 
 CONTAINS
 
   FUNCTION compute_rho(width,height,coulomb, thread_id) RESULT(res)
     INTEGER::width,height
-    TYPE(approxzkerneldata) :: coulomb
+    TYPE(ApproxZKernel2D) :: coulomb
     DOUBLE PRECISION:: dx
     INTEGER::i,j
 
@@ -76,7 +76,7 @@ CONTAINS
     ENDDO
     rho = rho/(NORM2(ABS(rho))*dx)
 
-    CALL execapproxkernel(coulomb, rho, potential)
+    CALL execapproxkernel2d(coulomb, rho, potential)
 
     res = SUM(rho * potential) * (dx**3) * (thread_id + 1)
     DEALLOCATE(rho, potential)

@@ -25,9 +25,9 @@ F90_SOURCES= \
 		mkl_vsl.f90 \
 		modutils.f90 \
 		modio.f90 \
-		modimageops.f90 \
-		modvslconv2d.f90 \
-		modapproxkernel.f90
+		modimageops2d.f90 modimageops1d.f90 \
+		modvslconv2d.f90 modvslconv1d.f90 \
+		modapproxkernel2d.f90 modapproxkernel1d.f90
 
 
 F90_OBJECTS=$(F90_SOURCES:%.f90=%.o)
@@ -40,14 +40,23 @@ modutils.o: modutils.f90
 modvslconv2d.o: modvslconv2d.f90
 	$(FF) $(FCFLAGS) modvslconv2d.f90 -o $(BUILD_DIR)$@
 
+modvslconv1d.o: modvslconv1d.f90
+	$(FF) $(FCFLAGS) modvslconv1d.f90 -o $(BUILD_DIR)$@
+
 modio.o: modio.f90
 	$(FF) $(FCFLAGS) modio.f90 -o $(BUILD_DIR)$@
 
-modimageops.o: modimageops.f90
-	$(FF) $(FCFLAGS) modimageops.f90 -o $(BUILD_DIR)$@
+modimageops2d.o: modimageops2d.f90
+	$(FF) $(FCFLAGS) modimageops2d.f90 -o $(BUILD_DIR)$@
 
-modapproxkernel.o: modapproxkernel.f90
-	$(FF) $(FCFLAGS) modapproxkernel.f90 -o $(BUILD_DIR)$@
+modimageops1d.o: modimageops1d.f90
+	$(FF) $(FCFLAGS) modimageops1d.f90 -o $(BUILD_DIR)$@
+
+modapproxkernel2d.o: modapproxkernel2d.f90
+	$(FF) $(FCFLAGS) modapproxkernel2d.f90 -o $(BUILD_DIR)$@
+
+modapproxkernel1d.o: modapproxkernel1d.f90
+	$(FF) $(FCFLAGS) modapproxkernel1d.f90 -o $(BUILD_DIR)$@
 
 mkl_vsl.o: mkl_vsl.f90
 	$(FF) $(FCFLAGS) mkl_vsl.f90 -o $(BUILD_DIR)$@
@@ -69,7 +78,6 @@ copy_includes:
 
 clean:
 		rm -f $(BUILD_DIR)*.o $(BUILD_DIR)*.mod *.txt *.dat *.xml *.png *.pdf fort.* *.mod 2> /dev/null
-		rm -f ../plots/*.txt ../plots/*.dat ../plots/*.xml ../plots/*.png ../plots/*.pdf ../plots/fort.* 2> /dev/null
 
 clean_lib:
 		rm $(LIB_DIR)*.a $(LIB_DIR)*.so $(INCLUDE_DIR)* 2> /dev/null

@@ -1,0 +1,13 @@
+!  SUBROUTINE save_array1d(filename, array)
+    CHARACTER(*) :: filename
+    DTYPE      :: array(:)
+    INTEGER :: i,nx,munit
+    PRINT("(A, A, A, i)"), " [INFO] Saving array1d: ", filename, " of size: ", SIZE(array)
+    nx = SIZE(array)
+
+    OPEN(newunit=munit,FILE=filename)
+    DO i = 1 , nx
+      WRITE(munit,*), array(i)
+    ENDDO
+    CLOSE(munit)
+!  END SUBROUTINE save_array1d

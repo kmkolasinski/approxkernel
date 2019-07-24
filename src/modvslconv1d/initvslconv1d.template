@@ -1,0 +1,26 @@
+! SUBROUTINE initvslsconv1d(this, kernel, input_size, mode)
+!    type(VSL_TYPE), TARGET :: this
+!    DTYPE, DIMENSION(:), intent(in) :: kernel
+!    INTEGER :: input_size
+!    INTEGER, OPTIONAL :: mode
+
+  INTEGER :: kernel_size
+  TYPE(VSLConv1DParams), POINTER :: params
+  INTEGER :: info
+
+  CALL deletevslconv1d(this)
+  params => this%params
+  kernel_size = SIZE(kernel, 1)
+
+  call init_conv1d(params, kernel_size, input_size, mode)
+
+  ALLOCATE(this%kernel(kernel_size))
+  ALLOCATE(this%output(params%yshape(1)))
+
+  this%kernel = kernel
+
+  info = vslconvnewtaskx1d(params%task, params%mode, &
+      params%kernel_shape, params%xshape, params%yshape, &
+      this%kernel, params%kernel_stride)
+
+! END SUBROUTINE initvslsconv1d

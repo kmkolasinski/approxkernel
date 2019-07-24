@@ -1,56 +1,56 @@
-MODULE modapproxkernel
+MODULE modapproxkernel2d
   USE modio
-  USE modimageops
+  USE modimageops2d
   USE modvslconv2d
   USE MKL_VSL
   IMPLICIT NONE
 
   PRIVATE
 
-  TYPE ApproxSKernelData
+  TYPE ApproxSKernel2D
     TYPE(VSLSConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLSConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
-    TYPE(SArray), ALLOCATABLE, DIMENSION(:) :: outputs
+    TYPE(SArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
     INTEGER, DIMENSION(2) :: input_shape
   ENDTYPE
 
-  TYPE ApproxDKernelData
+  TYPE ApproxDKernel2D
     TYPE(VSLDConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLDConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
-    TYPE(DArray), ALLOCATABLE, DIMENSION(:) :: outputs
+    TYPE(DArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
     INTEGER, DIMENSION(2) :: input_shape
   ENDTYPE
 
-  TYPE ApproxCKernelData
+  TYPE ApproxCKernel2D
     TYPE(VSLCConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLCConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
-    TYPE(CArray), ALLOCATABLE, DIMENSION(:) :: outputs
+    TYPE(CArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
     INTEGER, DIMENSION(2) :: input_shape
   ENDTYPE
 
-  TYPE ApproxZKernelData
+  TYPE ApproxZKernel2D
     TYPE(VSLZConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLZConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
-    TYPE(ZArray), ALLOCATABLE, DIMENSION(:) :: outputs
+    TYPE(ZArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
     INTEGER, DIMENSION(2) :: input_shape
   ENDTYPE
 
-  INTERFACE deleteapproxkernel
+  INTERFACE deleteapproxkernel2d
     MODULE PROCEDURE deleteapproxkernel_s
     MODULE PROCEDURE deleteapproxkernel_d
     MODULE PROCEDURE deleteapproxkernel_c
     MODULE PROCEDURE deleteapproxkernel_z
   END INTERFACE
 
-  INTERFACE initapproxkernel
+  INTERFACE initapproxkernel2d
     MODULE PROCEDURE initapproxkernel_s
     MODULE PROCEDURE initapproxkernel_d
     MODULE PROCEDURE initapproxkernel_c
@@ -58,123 +58,122 @@ MODULE modapproxkernel
     MODULE PROCEDURE initapproxkernel_dz
   END INTERFACE
 
-  INTERFACE execapproxkernel
+  INTERFACE execapproxkernel2d
     MODULE PROCEDURE execapproxkernel_s
     MODULE PROCEDURE execapproxkernel_d
     MODULE PROCEDURE execapproxkernel_c
     MODULE PROCEDURE execapproxkernel_z
   END INTERFACE
 
-  public :: initapproxkernel_dz
-  PUBLIC :: ApproxSKernelData, ApproxDKernelData
-  PUBLIC :: ApproxCKernelData, ApproxZKernelData
-  PUBLIC :: initapproxkernel, deleteapproxkernel, execapproxkernel
+  PUBLIC :: ApproxSKernel2D, ApproxDKernel2D
+  PUBLIC :: ApproxCKernel2D, ApproxZKernel2D
+  PUBLIC :: initapproxkernel2d, deleteapproxkernel2d, execapproxkernel2d
 
 CONTAINS
 
 
   SUBROUTINE deleteapproxkernel_s(kernel_obj)
-    TYPE(ApproxSKernelData) :: kernel_obj
-#INCLUDE "modapproxkernel/deleteapproxkernel.template"
+    TYPE(ApproxSKernel2D) :: kernel_obj
+#INCLUDE "modapproxkernel2d/deleteapproxkernel.template"
   END SUBROUTINE
 
   SUBROUTINE deleteapproxkernel_d(kernel_obj)
-    TYPE(ApproxDKernelData) :: kernel_obj
-#INCLUDE "modapproxkernel/deleteapproxkernel.template"
+    TYPE(ApproxDKernel2D) :: kernel_obj
+#INCLUDE "modapproxkernel2d/deleteapproxkernel.template"
   END SUBROUTINE
 
   SUBROUTINE deleteapproxkernel_c(kernel_obj)
-    TYPE(ApproxCKernelData) :: kernel_obj
-#INCLUDE "modapproxkernel/deleteapproxkernel.template"
+    TYPE(ApproxCKernel2D) :: kernel_obj
+#INCLUDE "modapproxkernel2d/deleteapproxkernel.template"
   END SUBROUTINE
 
   SUBROUTINE deleteapproxkernel_z(kernel_obj)
-    TYPE(ApproxZKernelData) :: kernel_obj
-#INCLUDE "modapproxkernel/deleteapproxkernel.template"
+    TYPE(ApproxZKernel2D) :: kernel_obj
+#INCLUDE "modapproxkernel2d/deleteapproxkernel.template"
   END SUBROUTINE
 
   ! Initialize approximate-kernel_obj integral
   SUBROUTINE initapproxkernel_s(kernel_obj, kernels, input_shape, use_smoothing)
-    TYPE(ApproxSKernelData) :: kernel_obj
+    TYPE(ApproxSKernel2D) :: kernel_obj
     REAL(KIND=4), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
 #DEFINE DTYPE REAL(4)
-#INCLUDE "modapproxkernel/initapproxkernel.template"
+#INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE initapproxkernel_d(kernel_obj, kernels, input_shape, use_smoothing)
-    TYPE(ApproxDKernelData) :: kernel_obj
+    TYPE(ApproxDKernel2D) :: kernel_obj
     REAL(KIND=8), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
 #DEFINE DTYPE REAL(8)
-#INCLUDE "modapproxkernel/initapproxkernel.template"
+#INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE initapproxkernel_c(kernel_obj, kernels, input_shape, use_smoothing)
-    TYPE(ApproxCKernelData) :: kernel_obj
+    TYPE(ApproxCKernel2D) :: kernel_obj
     COMPLEX(KIND=4), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
 #DEFINE DTYPE COMPLEX(4)
-#INCLUDE "modapproxkernel/initapproxkernel.template"
+#INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE initapproxkernel_z(kernel_obj, kernels, input_shape, use_smoothing)
-    TYPE(ApproxZKernelData) :: kernel_obj
+    TYPE(ApproxZKernel2D) :: kernel_obj
     COMPLEX(KIND=8), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
 #DEFINE DTYPE COMPLEX(8)
-#INCLUDE "modapproxkernel/initapproxkernel.template"
+#INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE initapproxkernel_dz(kernel_obj, kernels, input_shape, use_smoothing)
-    TYPE(ApproxZKernelData) :: kernel_obj
+    TYPE(ApproxZKernel2D) :: kernel_obj
     REAL(KIND=8), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
 #DEFINE DTYPE COMPLEX(8)
-#INCLUDE "modapproxkernel/initapproxkernel.template"
+#INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
 
   SUBROUTINE execapproxkernel_s(kernel_obj, input, output)
-    TYPE(ApproxSKernelData) :: kernel_obj
+    TYPE(ApproxSKernel2D) :: kernel_obj
     REAL(KIND=4), DIMENSION(:, :) :: input, output
 #DEFINE DTYPE REAL(4)
-#INCLUDE "modapproxkernel/execapproxkernel.template"
+#INCLUDE "modapproxkernel2d/execapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE execapproxkernel_d(kernel_obj, input, output)
-    TYPE(ApproxDKernelData) :: kernel_obj
+    TYPE(ApproxDKernel2D) :: kernel_obj
     REAL(KIND=8), DIMENSION(:, :) :: input, output
 #DEFINE DTYPE REAL(8)
-#INCLUDE "modapproxkernel/execapproxkernel.template"
+#INCLUDE "modapproxkernel2d/execapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE execapproxkernel_c(kernel_obj, input, output)
-    TYPE(ApproxCKernelData) :: kernel_obj
+    TYPE(ApproxCKernel2D) :: kernel_obj
     COMPLEX(KIND=4), DIMENSION(:, :) :: input, output
 #DEFINE DTYPE COMPLEX(4)
-#INCLUDE "modapproxkernel/execapproxkernel.template"
+#INCLUDE "modapproxkernel2d/execapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
   SUBROUTINE execapproxkernel_z(kernel_obj, input, output)
-    TYPE(ApproxZKernelData) :: kernel_obj
+    TYPE(ApproxZKernel2D) :: kernel_obj
     COMPLEX(KIND=8), DIMENSION(:, :) :: input, output
 #DEFINE DTYPE COMPLEX(8)
-#INCLUDE "modapproxkernel/execapproxkernel.template"
+#INCLUDE "modapproxkernel2d/execapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
-END MODULE modapproxkernel
+END MODULE modapproxkernel2d

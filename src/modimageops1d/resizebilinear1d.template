@@ -1,0 +1,38 @@
+!  SUBROUTINE resizebilinear1d(input, output)
+!    REAL(4), DIMENSION(:), INTENT(IN) :: input
+!    REAL(4), DIMENSION(:) :: output
+  INTEGER, DIMENSION(1) :: input_shape, target_shape
+  INTEGER :: i, ix
+  REAL(8) :: x, alpha, dx
+  INTEGER :: target_width
+  INTEGER :: source_width
+  INTEGER, DIMENSION(:), ALLOCATABLE :: mapix
+  REAL(8), DIMENSION(:), ALLOCATABLE :: mapx
+
+  target_shape = SHAPE(output)
+  input_shape = SHAPE(input)
+  CALL check_inputs(input_shape, input_shape, .true.)
+
+  target_width = target_shape(1)
+  source_width = input_shape(1)
+
+  ALLOCATE(mapix(target_width))
+  ALLOCATE(mapx(target_width))
+
+  DO i = 1, target_width
+    alpha =  (source_width - 1)/ (target_width - 1.0)
+    x = (i - 1) * alpha + 1
+    mapx(i) = x
+    mapix(i) = MIN(MAX(INT(x - 1e-6), 1), source_width - 1)
+  END DO
+
+  output = 0
+  DO i = 1 , target_width
+      x = mapx(i)
+      ix = mapix(i)
+      dx = x - ix
+      output(i) = input(ix) * (1 - dx)  + input(ix+1) * (dx)
+  END DO
+
+  DEALLOCATE(mapx)
+  DEALLOCATE(mapix)
