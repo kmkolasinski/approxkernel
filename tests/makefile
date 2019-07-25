@@ -7,7 +7,8 @@ all: example_run \
 		complex_coulomb_kernel2d_demo \
 		test_integral_openmp \
 		example_run_1d \
-		test_conv1d test_imageops1d
+		test_conv1d test_imageops1d \
+		benchmark_baseline_fft
 
 
 run:
@@ -22,6 +23,7 @@ run:
 	./test_integral_openmp
 	./test_conv1d
 	./test_imageops1d
+	./benchmark_baseline_fft
 
 
 .PHONY: run clean
@@ -60,6 +62,9 @@ test_imageops1d: test_imageops1d.f90
 test_coulomb_kernel: test_coulomb_kernel.f90
 	$(FF) $(FOPT) -I../include/  test_coulomb_kernel.f90 $(LDFLAGS) -o $@
 
+benchmark_baseline_fft: benchmark_baseline_fft.f90
+	$(FF) $(FOPT) -I../include/  benchmark_baseline_fft.f90 $(LDFLAGS) -o $@
+
 benchmark_integration: benchmark_integration.f90
 	$(FF) $(FOPT) -I../include/  benchmark_integration.f90 $(LDFLAGS) -o $@
 
@@ -81,7 +86,7 @@ test_integral_openmp: test_integral_openmp.f90
 
 clean:
 	rm -f *.txt *.dat  *.xml *.png *.pdf fort.*  2> /dev/null
-	rm -f outputs/*.txt outputs/coulomb_kernel/*.txt 2> /dev/null
+	rm -f outputs/*.txt outputs/coulomb_kernel/*.txt outputs/benchmark_baseline_fft/*.txt 2> /dev/null
 	rm -f example_run example_run_1d test_coulomb_kernel benchmark_integration coulomb_kernel2d_demo \
 			test_complex_demo benchmark_dtype complex_coulomb_kernel2d_demo \
-			test_integral_openmp test_conv1d test_imageops1d 2> /dev/null
+			test_integral_openmp test_conv1d test_imageops1d benchmark_baseline_fft 2> /dev/null
