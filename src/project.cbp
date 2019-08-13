@@ -73,6 +73,7 @@
 		<Compiler>
 			<Add option="-warn all" />
 		</Compiler>
+		<Unit filename="../tests/benchmark_baseline_fft.f90" />
 		<Unit filename="../tests/benchmark_dtype.f90" />
 		<Unit filename="../tests/benchmark_dtype.template" />
 		<Unit filename="../tests/benchmark_integration.f90" />
