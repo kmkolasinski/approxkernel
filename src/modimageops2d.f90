@@ -64,6 +64,7 @@ MODULE modimageops2d
   PUBLIC :: allocate_array2d, deallocate_array2d
   PUBLIC :: averagepool2x2, averagepool2x2inplace
   PUBLIC :: resizebilinearinplace2d, resizebilinear2d
+
 CONTAINS
 
   SUBROUTINE allocate_array2d_s(array, array_shape)

@@ -1,7 +1,7 @@
 all: static_lib dynamic_lib copy_includes
 
 # Default compiler
-FOPT= -O2 -132 -parallel -xHost -align -fPIC -cpp -openmp
+FOPT= -O2 -132 -parallel -xHost -align -fPIC -cpp -qopenmp
 
 DEBUG_LIB_NAME=
 FF=ifort
@@ -18,6 +18,14 @@ FOPT= -132 -heap-arrays 10 -O0 -check all,noarg_temp_created  \
 			-warn interfaces -fstack-protector -fPIC  -cpp -check pointer
 DEBUG_LIB_NAME=d
 BUILD_DIR=../build/debug/
+endif
+
+# set compilator flags for debug mode
+ifeq ($(C),PROFILE)
+FOPT= -132 -xHost -align  -fPIC -cpp -profile-functions \
+	-profile-loops=all -profile-loops-report=2
+DEBUG_LIB_NAME=profile
+BUILD_DIR=../build/profile/
 endif
 
 

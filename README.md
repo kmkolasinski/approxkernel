@@ -58,3 +58,20 @@ CALL deleteapproxkernel2d(kernelOp)
 ```
 export MKL_NUM_THREADS=8
 ```
+
+## Profiling code
+
+* Compile main code with C=PROFILE option
+```
+cd src
+make clean
+make C=PROFILE
+cd -
+```
+* Compile test with the same option
+```
+cd tests
+make clean && make test_profile C=PROFILE
+./test_profile
+loopprofileviewer.sh loop_prof_1579625645.xml
+```

@@ -69,59 +69,179 @@
 				<Option compiler="ifclin" />
 				<Option use_console_runner="0" />
 			</Target>
+			<Target title="Profile">
+				<Option output="project" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="ifclin" />
+				<Option use_console_runner="0" />
+				<MakeCommands>
+					<Build command="$make -f $makefile static_lib C=PROFILE" />
+					<CompileFile command="$make -f $makefile static_lib C=PROFILE" />
+					<Clean command="$make -f $makefile clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile clean" />
+					<SilentBuild command="$make -f $makefile static_lib C=PROFILE &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-warn all" />
 		</Compiler>
-		<Unit filename="../tests/benchmark_baseline_fft.f90" />
-		<Unit filename="../tests/benchmark_dtype.f90" />
-		<Unit filename="../tests/benchmark_dtype.template" />
-		<Unit filename="../tests/benchmark_integration.f90" />
-		<Unit filename="../tests/complex_coulomb_kernel2d_demo.f90" />
-		<Unit filename="../tests/coulomb_kernel2d_demo.f90" />
-		<Unit filename="../tests/example_run.f90" />
-		<Unit filename="../tests/example_run_1d.f90" />
-		<Unit filename="../tests/makefile" />
-		<Unit filename="../tests/test_complex_demo.f90" />
-		<Unit filename="../tests/test_conv1d.f90" />
-		<Unit filename="../tests/test_conv1d.template" />
-		<Unit filename="../tests/test_coulomb_kernel.f90" />
-		<Unit filename="../tests/test_imageops1d.f90" />
-		<Unit filename="../tests/test_integral_openmp.f90" />
-		<Unit filename="makefile" />
-		<Unit filename="mkl_vsl.f90" />
-		<Unit filename="modapproxkernel1d.f90" />
-		<Unit filename="modapproxkernel1d/deleteapproxkernel.template" />
-		<Unit filename="modapproxkernel1d/execapproxkernel.template" />
-		<Unit filename="modapproxkernel1d/initapproxkernel.template" />
-		<Unit filename="modapproxkernel2d.f90" />
-		<Unit filename="modapproxkernel2d/deleteapproxkernel.template" />
-		<Unit filename="modapproxkernel2d/execapproxkernel.template" />
-		<Unit filename="modapproxkernel2d/initapproxkernel.template" />
-		<Unit filename="modimageops1d.f90" />
-		<Unit filename="modimageops1d/averagepool2.template" />
-		<Unit filename="modimageops1d/averagepool2inplace.template" />
-		<Unit filename="modimageops1d/resizebilinear1d.template" />
-		<Unit filename="modimageops1d/resizebilinearinplace1d.template" />
-		<Unit filename="modimageops2d.f90" />
-		<Unit filename="modimageops2d/averagepool2x2.template" />
-		<Unit filename="modimageops2d/averagepool2x2inplace.template" />
-		<Unit filename="modimageops2d/resizebilinear2d.template" />
-		<Unit filename="modimageops2d/resizebilinearinplace2d.template" />
-		<Unit filename="modio.f90" />
-		<Unit filename="modio/read_array2d.template" />
-		<Unit filename="modio/read_kernel.template" />
-		<Unit filename="modio/read_kernels.template" />
-		<Unit filename="modio/save_array2d.template" />
-		<Unit filename="modutils.f90" />
-		<Unit filename="modvslconv1d.f90" />
-		<Unit filename="modvslconv1d/deletevslconv1d.template" />
-		<Unit filename="modvslconv1d/execvslconv1d.template" />
-		<Unit filename="modvslconv1d/initvslconv1d.template" />
-		<Unit filename="modvslconv2d.f90" />
-		<Unit filename="modvslconv2d/deletevslconv2d.template" />
-		<Unit filename="modvslconv2d/execvslconv2d.template" />
-		<Unit filename="modvslconv2d/initvslconv2d.template" />
+		<Unit filename="../tests/benchmark_dtype.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/benchmark_dtype.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/benchmark_integration.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/complex_coulomb_kernel2d_demo.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/coulomb_kernel2d_demo.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/example_run.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/makefile">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/test_complex_demo.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/test_coulomb_kernel.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="../tests/test_integral_openmp.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="makefile">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="mkl_vsl.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modapproxkernel.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modapproxkernel/deleteapproxkernel.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modapproxkernel/execapproxkernel.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modapproxkernel/initapproxkernel.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modimageops.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modimageops/averagepool2x2.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modimageops/averagepool2x2inplace.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modimageops/resizebilinear.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modimageops/resizebilinearinplace.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modio.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modio/read_array2d.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modio/read_kernel.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modio/read_kernels.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modio/save_array2d.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modutils.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modvslconv2d.f90">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modvslconv2d/deletevslconv2d.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modvslconv2d/execvslconv2d.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
+		<Unit filename="modvslconv2d/initvslconv2d.template">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="DebugTests" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

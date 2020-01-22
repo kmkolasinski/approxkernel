@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55d65c66-df0b-4d28-bff6-a2a00b672402" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/project.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/../src/project.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/project.layout" beforeDir="false" afterPath="$PROJECT_DIR$/../src/project.layout" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/scripts/fit_kernel">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="329">
-              <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
+              <caret line="144" selection-start-line="144" selection-end-line="144" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -345,6 +346,7 @@
       <updated>1541445223237</updated>
       <workItem from="1563906699085" duration="1612000" />
       <workItem from="1564068533461" duration="689000" />
+      <workItem from="1565724228538" duration="14000" />
     </task>
     <servers />
   </component>
@@ -381,13 +383,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2301000" />
+    <option name="totallyTimeSpent" value="2315000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="-4" width="1871" height="1204" extended-state="6" />
-    <editor active="true" />
+    <frame x="48" y="-4" width="1553" height="905" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14630137" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14817275" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -399,7 +400,7 @@
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5021645" side_tool="true" weight="0.32961932" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.32961932" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.4978355" visible="true" weight="0.32243416" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.4978355" visible="true" weight="0.3133583" />
       <window_info anchor="bottom" id="Docker" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -520,7 +521,7 @@
     <entry file="file://$PROJECT_DIR$/scripts/fit_kernel">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
-          <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
+          <caret line="144" selection-start-line="144" selection-end-line="144" />
           <folding>
             <element signature="e#23#38#0" expanded="true" />
           </folding>
