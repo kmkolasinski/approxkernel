@@ -36,6 +36,7 @@
   END DO
 
   output = 0
+
   DO i = 1 , target_width
     DO j = 1, target_height
       x = mapx(i)

@@ -7,10 +7,10 @@ PROGRAM example
   IMPLICIT NONE
   INTEGER, PARAMETER :: dtype = 8
 
-  !CALL benchmark_methods(&
-  !  "resources/coulomb_kernel_128/kernels_2D_scales=3_size=65_grid=128.txt", 3, 65, 128)
-  !CALL benchmark_methods(&
-  !  "resources/coulomb_kernel_128/kernels_2D_scales=4_size=33_grid=128.txt", 4, 33, 128)
+!  CALL benchmark_methods(&
+!    "resources/coulomb_kernel_128/kernels_2D_scales=3_size=65_grid=128.txt", 3, 65, 128)
+!  CALL benchmark_methods(&
+!    "resources/coulomb_kernel_128/kernels_2D_scales=4_size=33_grid=128.txt", 4, 33, 128)
   !CALL benchmark_methods(&
   !  "resources/coulomb_kernel_256/kernels_2D_scales=4_size=65_grid=256.txt", 4, 65, 256)
   !CALL benchmark_methods(&
@@ -41,7 +41,7 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   ALLOCATE(fft_kernel(2 * width + 1, 2 * width + 1))
 
 
-  num_samples = 100
+  num_samples = 20
   height = width
 
   ! Fill FFT 2d kernel
@@ -65,15 +65,16 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   input_x(3 * width / 4, height / 2) = +1.5
 
   CALL read_kernels_2d(kernels_file, num_scales, kernel_size, kernels)
-  CALL initapproxkernel2d(approx_kernel, kernels=kernels, input_shape=[width, height])
+  CALL initapproxkernel2d(approx_kernel, kernels=kernels, &
+      input_shape=[width, height], use_smoothing=.false.)
   exact_output_x = 0
   CALL reset_clock()
-  !CALL execvslconv2d(conv2d_direct, input_x, exact_output_x)
+!  CALL execvslconv2d(conv2d_direct, input_x, exact_output_x)
   PRINT"(A, 3i4)"," CONFIGURATION =", num_scales, kernel_size, width
   !PRINT"(A15, f12.4, A)","Time direct", get_clock() * 1000, "[ms]"
 
   ! first run for initialization (it will take longer, then next one)
-  DO i = 1, 10
+  DO i = 1, 5
     CALL execapproxkernel2d(approx_kernel, input_x, output_x)
   ENDDO
   CALL reset_clock()
@@ -84,16 +85,16 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   error = abs_error(output_x, exact_output_x)
   PRINT"(A15,f12.4,A,f12.4)"," Time approx", time, "[ms]   Error:", error
 
-  !DO i = 1, 10
-  !  CALL execvslconv2d(conv2d_fft, input_x, output_x)
-  !ENDDO
-  !CALL reset_clock()
-  !DO i = 1, num_samples
-  !  CALL execvslconv2d(conv2d_fft, input_x, output_x)
-  !ENDDO
-  !time  = get_clock() * 1000 / num_samples
-  !error = abs_error(output_x, exact_output_x)
-  !PRINT"(A15,f12.4,A,f12.4)"," Time ML fft", time, "[ms]   Error:", error
+  DO i = 1, 5
+    CALL execvslconv2d(conv2d_fft, input_x, output_x)
+  ENDDO
+  CALL reset_clock()
+  DO i = 1, num_samples
+    CALL execvslconv2d(conv2d_fft, input_x, output_x)
+  ENDDO
+  time  = get_clock() * 1000 / num_samples
+  error = abs_error(output_x, exact_output_x)
+  PRINT"(A15,f12.4,A,f12.4)"," Time ML fft", time, "[ms]   Error:", error
 
 
   DEALLOCATE(input_x, output_x, exact_output_x, fft_kernel, kernels)

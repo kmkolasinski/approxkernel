@@ -35,7 +35,7 @@ run:
 
 .PHONY: run clean
 # Default compiler
-FOPT= -O2 -132 -parallel -xHost -align -cpp
+FOPT= -O3 -132 -parallel -qopenmp -xHost -align -cpp
 DEBUG_LIB_NAME=
 FF=ifort
 LDFLAGS=-mkl -liomp5 ../lib/libcoulomb$(DEBUG_LIB_NAME).a

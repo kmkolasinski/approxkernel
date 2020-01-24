@@ -29,7 +29,7 @@ PROGRAM example
   enddo
   time  = get_clock() * 1000
 
-  PRINT"(A15,f12.4,A,f12.4)"," Time old", time, "[ms] "
+  PRINT"(A15,f12.4,A,f12.4)"," Time old", time / K, "[ms] "
 
   CALL reset_clock()
   do i = 1, K
@@ -37,7 +37,7 @@ PROGRAM example
   enddo
   time  = get_clock() * 1000
   x = sum(abs(output1 - output2))
-  PRINT"(A15,f12.4,A,f12.4)"," Time new", time, "[ms]   Error:", x
+  PRINT"(A15,f12.4,A,f12.4)"," Time new", time / K, "[ms]   Error:", x
 
 
 CONTAINS
@@ -66,7 +66,10 @@ SUBROUTINE upsample2x2(input, output)
   source_height = input_shape(2)
 
 
+
   output = 0
+  !OMP$ PARALLEL PRIVATE(source_width, source_height, c0, c1, c2, c3, ix, iy), SHARED (output)
+  !OMP$ PARALLEL DO
   DO i = 1 , source_width - 1
     DO j = 1, source_height - 1
       c0 = input(i  , j  )
