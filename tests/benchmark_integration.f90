@@ -26,7 +26,7 @@ CONTAINS
     REAL(KIND=dtype) :: time_initialization, time_execution
 
     open(unit=1, file=filename)
-    do i = 1, 3
+    do i = 1, 5
       do num_kernels = 1, 6
         grid_size = 32 * 2**i
         kernel_size = 4 * grid_size / 2**num_kernels + 1
