@@ -111,6 +111,7 @@
 			<Option target="Release" />
 			<Option target="DebugTests" />
 		</Unit>
+		<Unit filename="../tests/benchmark_kernel_size.f90" />
 		<Unit filename="../tests/complex_coulomb_kernel2d_demo.f90">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -146,6 +147,7 @@
 			<Option target="Release" />
 			<Option target="DebugTests" />
 		</Unit>
+		<Unit filename="../tests/test_pool_calc_upsample.f90" />
 		<Unit filename="../tests/test_profile.f90" />
 		<Unit filename="../tests/test_profile_resize_bilinear.f90" />
 		<Unit filename="makefile">

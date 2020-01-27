@@ -11,6 +11,8 @@ all: example_run \
 		test_conv1d test_imageops1d \
 		benchmark_baseline_fft \
 		test_profile_resize_bilinear \
+		benchmark_kernel_size \
+		test_pool_calc_upsample \
 		test_profile
 
 
@@ -31,6 +33,8 @@ run:
 	./benchmark_baseline_fft
 	./test_profile
 	./test_profile_resize_bilinear
+	./benchmark_kernel_size
+	./test_pool_calc_upsample
 
 
 .PHONY: run clean
@@ -105,6 +109,13 @@ test_profile: test_profile.f90
 test_profile_resize_bilinear: test_profile_resize_bilinear.f90
 	$(FF) $(FOPT) -I../include/  test_profile_resize_bilinear.f90 $(LDFLAGS) -o $@
 
+benchmark_kernel_size: benchmark_kernel_size.f90
+	$(FF) $(FOPT) -I../include/  benchmark_kernel_size.f90 $(LDFLAGS) -o $@
+
+test_pool_calc_upsample: test_pool_calc_upsample.f90
+	$(FF) $(FOPT) -I../include/  test_pool_calc_upsample.f90 $(LDFLAGS) -o $@
+
+
 
 clean:
 	rm -f *.txt *.dat  *.xml *.png *.pdf fort.*  2> /dev/null
@@ -113,4 +124,5 @@ clean:
 	rm -f example_run example_run_1d example_run_1d_complex test_coulomb_kernel benchmark_integration coulomb_kernel2d_demo \
 			test_complex_demo benchmark_dtype complex_coulomb_kernel2d_demo \
 			test_integral_openmp test_conv1d test_imageops1d benchmark_baseline_fft \
-			test_profile test_profile_resize_bilinear 2> /dev/null
+			test_profile test_profile_resize_bilinear benchmark_kernel_size \
+			test_pool_calc_upsample 2> /dev/null

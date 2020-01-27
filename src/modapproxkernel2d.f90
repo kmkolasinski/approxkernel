@@ -10,6 +10,7 @@ MODULE modapproxkernel2d
   TYPE ApproxSKernel2D
     TYPE(VSLSConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLSConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
+    TYPE(SArray2D), ALLOCATABLE, DIMENSION(:) :: inputs
     TYPE(SArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
@@ -19,6 +20,7 @@ MODULE modapproxkernel2d
   TYPE ApproxDKernel2D
     TYPE(VSLDConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLDConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
+    TYPE(DArray2D), ALLOCATABLE, DIMENSION(:) :: inputs
     TYPE(DArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
@@ -28,6 +30,7 @@ MODULE modapproxkernel2d
   TYPE ApproxCKernel2D
     TYPE(VSLCConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLCConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
+    TYPE(CArray2D), ALLOCATABLE, DIMENSION(:) :: inputs
     TYPE(CArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing
@@ -37,6 +40,7 @@ MODULE modapproxkernel2d
   TYPE ApproxZKernel2D
     TYPE(VSLZConv2D), ALLOCATABLE, DIMENSION(:) :: kernels_convs
     TYPE(VSLZConv2D), ALLOCATABLE, DIMENSION(:) :: smoothing_convs
+    TYPE(ZArray2D), ALLOCATABLE, DIMENSION(:) :: inputs
     TYPE(ZArray2D), ALLOCATABLE, DIMENSION(:) :: outputs
     INTEGER :: num_scales
     LOGICAL :: use_smoothing

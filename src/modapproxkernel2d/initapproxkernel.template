@@ -22,7 +22,9 @@
 
   ALLOCATE(kernel_obj%kernels_convs(kernel_obj%num_scales))
   ALLOCATE(kernel_obj%smoothing_convs(kernel_obj%num_scales))
+  ! allocate workspace arrays
   ALLOCATE(kernel_obj%outputs(kernel_obj%num_scales))
+  ALLOCATE(kernel_obj%inputs(kernel_obj%num_scales))
 
   PRINT*,"[INFO] Initializing approximate Kernel for N=", kernel_obj%num_scales
   PRINT*," * Input shape  :", input_shape
@@ -37,7 +39,9 @@
     ! conv3x3 should be computed with direct method, FFT will be slower
     CALL initvslconv2d(kernel_obj%smoothing_convs(i), smoothing_kernel, &
                         scale_shape, mode=VSL_CONV_MODE_DIRECT)
+
     CALL allocate_array2d(kernel_obj%outputs(i), scale_shape)
+    CALL allocate_array2d(kernel_obj%inputs(i), scale_shape)
   END DO
 
 !  END SUBROUTINE

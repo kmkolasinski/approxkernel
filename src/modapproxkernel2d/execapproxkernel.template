@@ -1,53 +1,56 @@
 !  SUBROUTINE execapproxskernel(kernel_obj, input, output)
 !    TYPE(ApproxSKernelData) :: kernel_obj
 !    REAL(KIND=4), DIMENSION(:, :) :: input, output
-  DTYPE, DIMENSION(:, :), ALLOCATABLE :: tmp_input, tmp_output
+
   INTEGER :: s, width, height
 
   width = kernel_obj%input_shape(1)
   height = kernel_obj%input_shape(2)
 
-  ALLOCATE(tmp_input(width, height))
-  ALLOCATE(tmp_output(width, height))
-
-  output = 0
-  tmp_input = input
+  kernel_obj%inputs(1)%array = input
 
   DO s = 1, kernel_obj%num_scales
-    ! same as: h = conv2d(x, kernel)
-    CALL execvslconv2d(kernel_obj%kernels_convs(s), &
-      tmp_input, kernel_obj%outputs(s)%array)
 
-    if (any(shape(kernel_obj%outputs(s)%array) /= shape(tmp_input))) then
-      print("(A, 2i5, A, 2i5, A, 2i5)"), &
-          " [ERROR] Shape missmatch: scale=", s, &
-          "output shape=", shape(kernel_obj%outputs(s)%array), &
-          "input shape=", shape(tmp_input)
-      stop -1
-    end if
+    ! same as: h = conv2d(x, kernel)
+    CALL execvslconv2d( &
+        kernel_obj%kernels_convs(s), &
+        kernel_obj%inputs(s)%array, &
+        kernel_obj%outputs(s)%array &
+      )
 
     IF (s == 1) THEN
       output = kernel_obj%outputs(s)%array
     ELSE
       ! same as: h' = resize(h, shape(input))
-      CALL resizebilinear2d(kernel_obj%outputs(s)%array, tmp_output)
+      CALL resizebilinear2d(&
+          kernel_obj%outputs(s)%array, &
+          kernel_obj%inputs(1)%array &
+        )
       ! output +=  h'
-      output = output + tmp_output
+      output = output + kernel_obj%inputs(1)%array
     ENDIF
 
     ! apply avg to all maps except the last one
     IF (s /= kernel_obj%num_scales) then
+
       IF (kernel_obj%use_smoothing) THEN
-        ! smoothen density
-        CALL execvslconv2d(kernel_obj%smoothing_convs(s), &
-                          tmp_input, kernel_obj%outputs(s)%array)
-        tmp_input = kernel_obj%outputs(s)%array
+        ! optionally smoothen density
+        CALL execvslconv2d(&
+            kernel_obj%smoothing_convs(s), &
+            kernel_obj%inputs(s)%array, &
+            kernel_obj%outputs(s)%array &
+          )
+        kernel_obj%inputs(s)%array = kernel_obj%outputs(s)%array
       END IF
       ! downsample input by 2 factor
-      CALL averagepool2x2inplace(tmp_input)
+      CALL averagepool2x2( &
+          kernel_obj%inputs(s)%array, &
+          kernel_obj%inputs(s+1)%array, &
+          dynamic=.false. &
+        )
+
     END IF
 
   END DO
-  DEALLOCATE(tmp_input, tmp_output)
 !  END SUBROUTINE
 

@@ -3,7 +3,7 @@ PROGRAM example
   USE modio
   USE modapproxkernel2d
   IMPLICIT NONE
-  INTEGER, PARAMETER :: dtype = 4,  num_samples = 200
+  INTEGER, PARAMETER :: dtype = 4,  num_samples = 50
 
   REAL(KIND=dtype), DIMENSION(:, :), ALLOCATABLE :: input_x, output_x
   REAL(KIND=dtype), DIMENSION(:, :, :), ALLOCATABLE :: kernels
@@ -26,7 +26,7 @@ CONTAINS
     REAL(KIND=dtype) :: time_initialization, time_execution
 
     open(unit=1, file=filename)
-    do i = 1, 5
+    do i = 1, 4
       do num_kernels = 1, 6
         grid_size = 32 * 2**i
         kernel_size = 4 * grid_size / 2**num_kernels + 1
@@ -40,6 +40,10 @@ CONTAINS
         call execapproxkernel2d(coulomb, input_x, output_x)
         time_initialization = get_clock()
         print*, "Initialization time:", time_initialization * 1000, "[ms]"
+        ! warmup
+        do s = 1, 10
+          call execapproxkernel2d(coulomb, input_x, output_x)
+        end do
 
         call reset_clock()
         do s = 1, num_samples
@@ -49,7 +53,7 @@ CONTAINS
         print*, "Time execution:", time_execution * 1000, "[ms]"
         call deallocate_data()
         write(1,"(3i6, 2f12.6)"), grid_size, num_kernels, kernel_size, &
-            time_initialization, time_execution
+            time_initialization * 1000, time_execution * 1000
       end do
     end do
     close(1)

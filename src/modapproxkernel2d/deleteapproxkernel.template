@@ -5,6 +5,7 @@
   IF (ALLOCATED(kernel_obj%kernels_convs)) THEN
     DO i = 1, kernel_obj%num_scales
       CALL deallocate_array2d(kernel_obj%outputs(i))
+      CALL deallocate_array2d(kernel_obj%inputs(i))
       CALL deletevslconv2d(kernel_obj%kernels_convs(i))
       CALL deletevslconv2d(kernel_obj%smoothing_convs(i))
     END DO
@@ -13,6 +14,7 @@
     DEALLOCATE(kernel_obj%kernels_convs)
     DEALLOCATE(kernel_obj%smoothing_convs)
     DEALLOCATE(kernel_obj%outputs)
+    DEALLOCATE(kernel_obj%inputs)
 
   END IF
 !END SUBROUTINE
