@@ -9,10 +9,9 @@ import tensorflow as tf
 from approxkernel.integral2d import get_kernel_integral_radial_fn
 
 NUM_GRID_SIZES = 4
-NUM_SCALES = 6
+NUM_SCALES = 7
 NUM_WARMUP_STEPS = 10
-NUM_BENCHMARK_STEPS = 100
-MS_FACTOR = 1000
+NUM_BENCHMARK_STEPS = 20
 
 
 def run_benchmark(num_scales: int, kernel_size: int, grid_size: int) -> float:
