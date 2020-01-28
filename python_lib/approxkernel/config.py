@@ -37,20 +37,17 @@ class Config(NamedTuple):
 
     @staticmethod
     def get_dummy_config():
-        return Config(
-            kernel_fn_path="kernel.py",
-            debug_dir="debug"
-        )
+        return Config(kernel_fn_path="kernel.py", debug_dir="debug")
 
     def to_yaml(self, save_path: Path):
         params = obj_to_dict(self)
 
-        with open(save_path, 'w') as fp:
+        with open(save_path, "w") as fp:
             yaml.dump(params, fp, default_flow_style=False)
 
     @staticmethod
     def from_yaml(path: Path) -> "Config":
-        with open(path, 'r') as fp:
+        with open(path, "r") as fp:
             params = yaml.load(fp)
 
         return Config(
@@ -58,5 +55,5 @@ class Config(NamedTuple):
             debug_dir=params.get("debug_dir"),
             clear_debug_dir=params["clear_debug_dir"],
             grid_config=GridConfig(**params["grid_config"]),
-            train_config=TrainConfig(**params["train_config"])
+            train_config=TrainConfig(**params["train_config"]),
         )

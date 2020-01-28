@@ -5,10 +5,7 @@ import numpy as np
 
 
 def plot_sample_cross_section(
-        source: np.ndarray,
-        target: np.ndarray,
-        save_path: str,
-        figsize=(15, 4)
+    source: np.ndarray, target: np.ndarray, save_path: str, figsize=(15, 4)
 ) -> None:
 
     plt.figure(figsize=figsize)
@@ -20,11 +17,7 @@ def plot_sample_cross_section(
     plt.close()
 
 
-def plot_sample_target2d(
-    target: np.ndarray,
-    save_path: str,
-    figsize=(20, 5)
-) -> None:
+def plot_sample_target2d(target: np.ndarray, save_path: str, figsize=(20, 5)) -> None:
 
     grid_size = target.shape[0]
     plt.figure(figsize=figsize)
@@ -72,18 +65,16 @@ def plot_kernels1d(kernels_1d: list, save_dir: Path, figsize=(10, 5)):
 
 
 def plot_train_target_comparison(
-        sess,
-        model_def: dict,
-        source: np.ndarray,
-        target: np.ndarray,
-        save_path: str,
-        figsize=(10, 5)
+    sess,
+    model_def: dict,
+    source: np.ndarray,
+    target: np.ndarray,
+    save_path: str,
+    figsize=(10, 5),
 ):
     results = sess.run(
         [model_def["output"]] + tf.get_collection("POTENTIAL_SCALES"),
-        feed_dict={
-            model_def["source_ph"]: np.expand_dims(source, 0),
-        }
+        feed_dict={model_def["source_ph"]: np.expand_dims(source, 0),},
     )
 
     target_predicted = results[0][0, :]
@@ -109,4 +100,3 @@ def plot_kernels2d(kernels_2d: list, save_dir: Path, figsize=(5, 5)):
         plt.colorbar()
         plt.savefig(save_dir / f"trained_kernel_2d_scale={s}.png")
         plt.close()
-

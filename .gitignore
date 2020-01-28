@@ -5,3 +5,5 @@ approxkernel.egg-info
 *.txt
 __pycache__
 build/*
+.idea
+notebooks

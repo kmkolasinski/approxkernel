@@ -60,7 +60,6 @@ CONTAINS
 
   end subroutine
 
-
   SUBROUTINE allocate_data(grid_size, kernel_size, num_kernels, use_smoothing)
     INTEGER, INTENT(IN) :: grid_size, kernel_size, num_kernels
     logical :: use_smoothing
