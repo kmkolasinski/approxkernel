@@ -59,7 +59,7 @@ if __name__ == "__main__":
             file.write(row)
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for i in range(1, NUM_GRID_SIZES + 1):
-        for num_scales in range(2, NUM_SCALES + 1):
+        for num_scales in range(1, NUM_SCALES + 1):
 
             grid_size = 32 * 2 ** i
             kernel_size = int(4 * grid_size / 2 ** num_scales + 1)
@@ -67,9 +67,12 @@ if __name__ == "__main__":
                 f"Running N={grid_size:6} Ns={num_scales:4} K={kernel_size:5}"
             )
 
-            delta = run_benchmark(
-                num_scales=num_scales, kernel_size=kernel_size, grid_size=grid_size
-            )
-            row = f"{timestamp},{tag},{grid_size},{num_scales},{kernel_size},{delta}\n"
-            with open(save_path, "a") as file:
-                file.write(row)
+            try:
+                delta = run_benchmark(
+                    num_scales=num_scales, kernel_size=kernel_size, grid_size=grid_size
+                )
+                row = f"{timestamp},{tag},{grid_size},{num_scales},{kernel_size},{delta}\n"
+                with open(save_path, "a") as file:
+                    file.write(row)
+            except Exception as error:
+                print(f"ERROR: Could not execute test:", error)

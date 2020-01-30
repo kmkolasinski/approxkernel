@@ -97,51 +97,56 @@ CONTAINS
   END SUBROUTINE
 
   ! Initialize approximate-kernel_obj integral
-  SUBROUTINE initapproxkernel_s(kernel_obj, kernels, input_shape, use_smoothing)
+  SUBROUTINE initapproxkernel_s(kernel_obj, kernels, input_shape, use_smoothing, mode)
     TYPE(ApproxSKernel2D) :: kernel_obj
     REAL(KIND=4), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
+    INTEGER, OPTIONAL :: mode
 #DEFINE DTYPE REAL(4)
 #INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
-  SUBROUTINE initapproxkernel_d(kernel_obj, kernels, input_shape, use_smoothing)
+  SUBROUTINE initapproxkernel_d(kernel_obj, kernels, input_shape, use_smoothing, mode)
     TYPE(ApproxDKernel2D) :: kernel_obj
     REAL(KIND=8), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
+    INTEGER, OPTIONAL :: mode
 #DEFINE DTYPE REAL(8)
 #INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
-  SUBROUTINE initapproxkernel_c(kernel_obj, kernels, input_shape, use_smoothing)
+  SUBROUTINE initapproxkernel_c(kernel_obj, kernels, input_shape, use_smoothing, mode)
     TYPE(ApproxCKernel2D) :: kernel_obj
     COMPLEX(KIND=4), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
+    INTEGER, OPTIONAL :: mode
 #DEFINE DTYPE COMPLEX(4)
 #INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
-  SUBROUTINE initapproxkernel_z(kernel_obj, kernels, input_shape, use_smoothing)
+  SUBROUTINE initapproxkernel_z(kernel_obj, kernels, input_shape, use_smoothing, mode)
     TYPE(ApproxZKernel2D) :: kernel_obj
     COMPLEX(KIND=8), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
+    INTEGER, OPTIONAL :: mode
 #DEFINE DTYPE COMPLEX(8)
 #INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE
   END SUBROUTINE
 
-  SUBROUTINE initapproxkernel_dz(kernel_obj, kernels, input_shape, use_smoothing)
+  SUBROUTINE initapproxkernel_dz(kernel_obj, kernels, input_shape, use_smoothing, mode)
     TYPE(ApproxZKernel2D) :: kernel_obj
     REAL(KIND=8), DIMENSION(:, :, :) :: kernels
     INTEGER, DIMENSION(2) :: input_shape
     LOGICAL, OPTIONAL :: use_smoothing
+    INTEGER, OPTIONAL :: mode
 #DEFINE DTYPE COMPLEX(8)
 #INCLUDE "modapproxkernel2d/initapproxkernel.template"
 #UNDEF DTYPE

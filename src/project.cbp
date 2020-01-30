@@ -95,6 +95,7 @@
 		<Compiler>
 			<Add option="-warn all" />
 		</Compiler>
+		<Unit filename="../benchmarks/run_ifort_benchmark.f90" />
 		<Unit filename="../tests/benchmark_baseline_fft.f90" />
 		<Unit filename="../tests/benchmark_dtype.f90">
 			<Option target="Debug" />

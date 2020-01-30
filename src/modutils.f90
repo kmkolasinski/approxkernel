@@ -8,7 +8,7 @@ MODULE modutils
 
   PUBLIC :: print_matrix
   PUBLIC :: print_date
-  PUBLIC :: reset_clock , get_clock
+  PUBLIC :: reset_clock , get_clock, get_date
 
 CONTAINS
 
@@ -24,7 +24,6 @@ CONTAINS
     DO i = 1 , sx
       PRINT mformat,DBLE(matrix(i,:))
     ENDDO
-
   END SUBROUTINE print_zmatrix
 
   ! Print real valued matrix
@@ -38,7 +37,6 @@ CONTAINS
     DO i = 1 , sx
       PRINT mformat,(matrix(i,:))
     ENDDO
-
   END SUBROUTINE print_dmatrix
 
 
@@ -71,5 +69,23 @@ CONTAINS
     CALL DATE_AND_TIME(VALUES=values)
     PRINT '(a,2x,a,A,2x,a)'," DATA:", DATE,"   TIME:", time
   END SUBROUTINE print_date
+
+
+  ! Return string formatted date
+  CHARACTER(20) FUNCTION get_date() result(rval)
+    CHARACTER(8)  :: DATE
+    CHARACTER(10) :: time
+    CHARACTER(5)  :: zone
+    INTEGER,DIMENSION(8) :: values
+    CHARACTER(20)  :: formatted_date
+    ! using keyword arguments
+    CALL DATE_AND_TIME(DATE,time,zone,values)
+    CALL DATE_AND_TIME(DATE=DATE,ZONE=zone)
+    CALL DATE_AND_TIME(TIME=time)
+    CALL DATE_AND_TIME(VALUES=values)
+    WRITE(formatted_date, *), DATE," ",time
+    rval = TRIM(formatted_date)
+
+  END FUNCTION get_date
 
 END MODULE modutils
