@@ -24,8 +24,8 @@ PROGRAM example
   WRITE(filename, *), "results/ifort-pegasus-cpu-fft-ncpus=", trim(MKL_NUM_THREADS), ".txt"
   call run_benchmark(trim(filename), RUN_ID, "fft", mode=VSL_CONV_MODE_FFT)
 
-  WRITE(filename, *), "results/ifort-pegasus-cpu-direct-ncpus=", trim(MKL_NUM_THREADS), ".txt"
-  call run_benchmark(trim(filename), RUN_ID, "direct", mode=VSL_CONV_MODE_DIRECT)
+!  WRITE(filename, *), "results/ifort-pegasus-cpu-direct-ncpus=", trim(MKL_NUM_THREADS), ".txt"
+!  call run_benchmark(trim(filename), RUN_ID, "direct", mode=VSL_CONV_MODE_DIRECT)
 
 CONTAINS
 

@@ -21,10 +21,9 @@
            "shape as VSLCONV2D expected input shape (", params%xshape,")"
     STOP -1
   end if
-
   info = vslconvexecx2d(params%task, input, params%xstride, this%output, params%ystride)
 
-  output = this%output(params%padding + 1: input_shape(1) + params%padding + 1,&
-                       params%padding + 1: input_shape(2) + params%padding + 1)
+  output = this%output(params%padding + 1: input_shape(1) + params%padding,&
+                       params%padding + 1: input_shape(2) + params%padding)
 
 ! END SUBROUTINE
