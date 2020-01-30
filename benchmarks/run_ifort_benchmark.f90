@@ -9,7 +9,7 @@ PROGRAM example
   INTEGER, PARAMETER :: NUM_SCALES_SCAN = 7
   INTEGER, PARAMETER :: NUM_WARMUP_STEPS = 10
   INTEGER, PARAMETER :: NUM_BENCHMARK_STEPS = 20
-  CHARACTER :: MKL_NUM_THREADS, RUN_ID
+  CHARACTER(2) :: MKL_NUM_THREADS, RUN_ID
   CHARACTER(100) :: filename
   REAL(KIND=dtype), DIMENSION(:, :), ALLOCATABLE :: input_x, output_x
   REAL(KIND=dtype), DIMENSION(:, :, :), ALLOCATABLE :: kernels
@@ -21,16 +21,17 @@ PROGRAM example
   print*, "MKL_NUM_THREADS=", MKL_NUM_THREADS
   print*, "         RUN_ID=", RUN_ID
 
-  WRITE(filename, *), "results/ifort-pegasus-cpu-direct-ncpus=", MKL_NUM_THREADS, ".txt"
-  call run_benchmark(trim(filename), RUN_ID, mode=VSL_CONV_MODE_DIRECT)
-  WRITE(filename, *), "results/ifort-pegasus-cpu-fft-ncpus=", MKL_NUM_THREADS, ".txt"
-  call run_benchmark(trim(filename), RUN_ID, mode=VSL_CONV_MODE_FFT)
+  WRITE(filename, *), "results/ifort-pegasus-cpu-fft-ncpus=", trim(MKL_NUM_THREADS), ".txt"
+  call run_benchmark(trim(filename), RUN_ID, "fft", mode=VSL_CONV_MODE_FFT)
+
+  WRITE(filename, *), "results/ifort-pegasus-cpu-direct-ncpus=", trim(MKL_NUM_THREADS), ".txt"
+  call run_benchmark(trim(filename), RUN_ID, "direct", mode=VSL_CONV_MODE_DIRECT)
 
 CONTAINS
 
-  subroutine run_benchmark(filename, run, mode)
+  subroutine run_benchmark(filename, run, tag, mode)
     character(*) :: filename
-    character(*) :: run
+    character(*) :: run, tag
     INTEGER :: mode
 
     INTEGER :: i, j, s
@@ -57,7 +58,7 @@ CONTAINS
           cycle
         end if
 
-        print*,"Running benchmark", 2**num_scales, 2**num_scales > grid_size
+        print*,"Running benchmark"
         print"(A, i5)","         grid_size:", grid_size
         print"(A, i5)","        num_scales:", num_scales
         print"(A, i5)","       kernel_size:", kernel_size
@@ -66,7 +67,10 @@ CONTAINS
 
         ! warmup
         do s = 1, NUM_WARMUP_STEPS
+          call reset_clock()
+          call random_number(input_x)
           call execapproxkernel2d(coulomb, input_x, output_x)
+          print"(3A, f10.3, A)", "Running warmup for ", tag," delta:", get_clock()*1000, " [ms]"
         end do
 
         call reset_clock()
@@ -103,7 +107,7 @@ CONTAINS
     CALL initapproxkernel2d(coulomb, &
         kernels=kernels, &
         input_shape=[grid_size, grid_size], &
-        mode=mode)
+        mode=mode, use_smoothing=.false.)
 
   END SUBROUTINE
 
