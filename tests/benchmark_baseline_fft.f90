@@ -5,7 +5,7 @@ PROGRAM example
   USE modapproxkernel2d
   use modvslconv2d
   IMPLICIT NONE
-  INTEGER, PARAMETER :: dtype = 8
+  INTEGER, PARAMETER :: dtype = 4
 
   CALL benchmark_methods(&
     "resources/coulomb_kernel_128/kernels_2D_scales=4_size=33_grid=128.txt", 4, 33, 128)
@@ -32,8 +32,8 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   REAL(KIND=dtype), ALLOCATABLE ,DIMENSION(:, :) :: input_x, output_x, exact_output_x
   REAL(KIND=dtype), ALLOCATABLE ,DIMENSION(:, :) :: fft_kernel
   REAL(KIND=dtype), ALLOCATABLE ,DIMENSION(:, :, :) :: kernels
-  TYPE(ApproxDKernel2D) :: approx_kernel
-  TYPE(VSLDConv2D) :: conv2d_fft, conv2d_direct
+  TYPE(ApproxSKernel2D) :: approx_kernel
+  TYPE(VSLSConv2D) :: conv2d_fft, conv2d_direct
   INTEGER :: i, j, num_samples, height
   REAL(KIND=dtype) :: radius, cx, cy, time, error
 
@@ -41,7 +41,7 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   ALLOCATE(fft_kernel(2 * width + 1, 2 * width + 1))
 
 
-  num_samples = 10
+  num_samples = 20
   height = width
 
   ! Fill FFT 2d kernel
@@ -65,7 +65,12 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   input_x(3 * width / 4, height / 2) = +1.5
 
   CALL read_kernels_2d(kernels_file, num_scales, kernel_size, kernels)
-  CALL initapproxkernel2d(approx_kernel, kernels=kernels, input_shape=[width, height])
+  CALL initapproxkernel2d(&
+        approx_kernel, &
+        kernels=kernels, &
+        input_shape=[width, height], &
+        use_smoothing=.false. &
+      )
   exact_output_x = 0
   CALL reset_clock()
   CALL execvslconv2d(conv2d_direct, input_x, exact_output_x)
