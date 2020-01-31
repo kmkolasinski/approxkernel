@@ -181,6 +181,9 @@
 		<Unit filename="modio/save_array2d.template" />
 		<Unit filename="modutils.f90" />
 		<Unit filename="modvslconv1d.f90" />
+		<Unit filename="modvslconv1d/deletevslconv1d.template" />
+		<Unit filename="modvslconv1d/execvslconv1d.template" />
+		<Unit filename="modvslconv1d/initvslconv1d.template" />
 		<Unit filename="modvslconv2d.f90" />
 		<Unit filename="modvslconv2d/deletevslconv2d.template" />
 		<Unit filename="modvslconv2d/execvslconv2d.template" />

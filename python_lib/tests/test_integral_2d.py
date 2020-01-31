@@ -5,7 +5,6 @@ import approxkernel.integral2d as integral2d_ops
 
 
 class Integral2DTest(tf.test.TestCase):
-
     def test_create_kernel_integral(self):
         kernel_fn = kernels_ops.get_coulomb_2d_kernel_fn()
         kernels = integral2d_ops.get_trainable_radial_kernels(33, 3, kernel_fn)
@@ -31,4 +30,3 @@ class Integral2DTest(tf.test.TestCase):
 
             self.assertEqual(output_np.shape, (1, 256, 256, 1))
             self.assertEqual(output_np.dtype, np.float32)
-

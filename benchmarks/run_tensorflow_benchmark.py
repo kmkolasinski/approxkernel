@@ -14,12 +14,14 @@ NUM_WARMUP_STEPS = 10
 NUM_BENCHMARK_STEPS = 20
 
 
-def run_benchmark(num_scales: int, kernel_size: int, grid_size: int) -> float:
+def run_benchmark(
+    num_scales: int, kernel_size: int, grid_size: int, use_fft: bool = False
+) -> float:
 
     with tf.Graph().as_default() as graph:
         with tf.Session(graph=graph) as sess:
             integral_fn = get_kernel_integral_radial_fn(
-                kernel_size=kernel_size, num_scales=num_scales
+                kernel_size=kernel_size, num_scales=num_scales, use_fft=use_fft
             )
             input_ph = tf.placeholder(tf.float32, [1, grid_size, grid_size, 1])
             output = integral_fn(input_ph)
@@ -46,30 +48,39 @@ if __name__ == "__main__":
         default="tensorflow",
         help="Additional benchmark tag to distinguish between runs",
     )
+    parser.add_argument(
+        "--use-fft",
+        default=False,
+        action="store_true",
+        help="Use FFT for convolution",
+    )
 
     args = parser.parse_args()
-
     name = args.name
     tag = args.tag
-    save_path = f"results/tensorflow-{name}.txt"
+    use_fft = args.use_fft
+    if use_fft:
+        save_path = f"results/tensorflow-{name}-fft.txt"
+    else:
+        save_path = f"results/tensorflow-{name}.txt"
 
     if not Path(save_path).exists():
         row = "timestamp,tag,grid_size,num_scales,kernel_size,delta\n"
         with open(save_path, "w") as file:
             file.write(row)
+
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     for i in range(1, NUM_GRID_SIZES + 1):
         for num_scales in range(1, NUM_SCALES + 1):
 
             grid_size = 32 * 2 ** i
             kernel_size = int(4 * grid_size / 2 ** num_scales + 1)
-            print(
-                f"Running N={grid_size:6} Ns={num_scales:4} K={kernel_size:5}"
-            )
+            print(f"Running N={grid_size:6} Ns={num_scales:4} K={kernel_size:5}")
 
             try:
                 delta = run_benchmark(
-                    num_scales=num_scales, kernel_size=kernel_size, grid_size=grid_size
+                    num_scales=num_scales, kernel_size=kernel_size,
+                    grid_size=grid_size, use_fft=use_fft
                 )
                 row = f"{timestamp},{tag},{grid_size},{num_scales},{kernel_size},{delta}\n"
                 with open(save_path, "a") as file:

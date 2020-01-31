@@ -6,7 +6,6 @@ import approxkernel.config as cfg
 
 
 class TestConfig(TestCase):
-
     def setUp(self):
         self._tmpdir = Path(tempfile.mkdtemp())
 

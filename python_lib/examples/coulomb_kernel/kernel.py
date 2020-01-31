@@ -16,5 +16,5 @@ def kernel_fn(r: float) -> float:
     dx = 1 / 32
     distance = dx * (r + _epsilon)
     amplitude = 1 / distance
-    amplitude = min(amplitude, 2/dx)
+    amplitude = min(amplitude, 2 / dx)
     return alpha * amplitude

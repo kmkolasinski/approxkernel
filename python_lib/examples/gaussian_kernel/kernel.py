@@ -17,5 +17,5 @@ def kernel_fn(r: float) -> float:
 
     dx = 0.2
     distance = dx * r
-    amplitude = math.exp(- 0.5 * distance ** 2)
+    amplitude = math.exp(-0.5 * distance ** 2)
     return amplitude
