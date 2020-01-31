@@ -33,7 +33,7 @@ def run_benchmark(
 
             start = datetime.now()
             for _ in range(NUM_BENCHMARK_STEPS):
-                fake_input = np.random.rand(1, grid_size, grid_size, 1)
+                # fake_input = np.random.rand(1, grid_size, grid_size, 1)
                 sess.run(output, {input_ph: fake_input})
             end = datetime.now()
             delta = (end - start).total_seconds() / NUM_BENCHMARK_STEPS
