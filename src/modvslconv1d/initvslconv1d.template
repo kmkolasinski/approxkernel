@@ -12,7 +12,7 @@
   params => this%params
   kernel_size = SIZE(kernel, 1)
 
-  call init_conv1d(params, kernel_size, input_size, mode)
+  CALL init_conv1d(params, kernel_size, input_size, mode)
 
   ALLOCATE(this%kernel(kernel_size))
   ALLOCATE(this%output(params%yshape(1)))

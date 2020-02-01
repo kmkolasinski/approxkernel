@@ -23,7 +23,7 @@ PROGRAM demo
   ! set-up potential
   rho = 0
   rho(width / 2, height / 2) = 1
-  rho(width / 4, height / 4) = cmplx(0, 1)
+  rho(width / 4, height / 4) = CMPLX(0, 1)
 
   CALL reset_clock()
   CALL execapproxkernel2d(coulomb, rho, potential)
@@ -32,8 +32,8 @@ PROGRAM demo
   CALL execapproxkernel2d(coulomb, rho, potential)
   PRINT*, "Second call time:", get_clock() * 1000, "[ms]"
   ! this can be plotted with gnuplot: sp "output_coulomb_2d.txt" w pm3d
-  CALL save_array_2d("outputs/output_complex_coulomb_2d_real.txt", dble(potential))
-  CALL save_array_2d("outputs/output_complex_coulomb_2d_imag.txt", imag(potential))
+  CALL save_array_2d("outputs/output_complex_coulomb_2d_real.txt", DBLE(potential))
+  CALL save_array_2d("outputs/output_complex_coulomb_2d_imag.txt", IMAG(potential))
   CALL deleteapproxkernel2d(coulomb)
   DEALLOCATE(kernels)
 

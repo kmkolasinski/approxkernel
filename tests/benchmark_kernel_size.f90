@@ -2,7 +2,7 @@ PROGRAM example
   USE MKL_VSL
   USE modutils
   USE modio
-  use modvslconv2d
+  USE modvslconv2d
   IMPLICIT NONE
   INTEGER, PARAMETER :: dtype = 4
   INTEGER :: i
@@ -11,27 +11,27 @@ PROGRAM example
 
   PRINT"(2A6, A20)", "N", "K", "FFTConv2D [ms]"
 
-  DO i = 1, size(kernel_sizes_a)
+  DO i = 1, SIZE(kernel_sizes_a)
     CALL benchmark_conv2d(kernel_sizes_a(i), 512)
   END DO
 
-  DO i = 1, size(kernel_sizes_b)
+  DO i = 1, SIZE(kernel_sizes_b)
     CALL benchmark_conv2d(kernel_sizes_b(i), 512)
   END DO
 
-  DO i = 1, size(kernel_sizes_a)
+  DO i = 1, SIZE(kernel_sizes_a)
     CALL benchmark_conv2d(kernel_sizes_a(i), 256)
   END DO
 
-  DO i = 1, size(kernel_sizes_b)
+  DO i = 1, SIZE(kernel_sizes_b)
     CALL benchmark_conv2d(kernel_sizes_b(i), 256)
   END DO
 
-  DO i = 1, size(kernel_sizes_a)
+  DO i = 1, SIZE(kernel_sizes_a)
     CALL benchmark_conv2d(kernel_sizes_a(i), 128)
   END DO
 
-  DO i = 1, size(kernel_sizes_b)
+  DO i = 1, SIZE(kernel_sizes_b)
     CALL benchmark_conv2d(kernel_sizes_b(i), 128)
   END DO
 
@@ -52,8 +52,8 @@ SUBROUTINE benchmark_conv2d(kernel_size, width)
   ALLOCATE(kernel(kernel_size, kernel_size))
   CALL reset_clock()
   num_samples = 50
-  call initvslconv2d(conv2d_fft, kernel, [width, width], mode=VSL_CONV_MODE_FFT)
-  call initvslconv2d(conv2d_direct, kernel, [width, width], mode=VSL_CONV_MODE_DIRECT)
+  CALL initvslconv2d(conv2d_fft, kernel, [width, width], mode=VSL_CONV_MODE_FFT)
+  CALL initvslconv2d(conv2d_direct, kernel, [width, width], mode=VSL_CONV_MODE_DIRECT)
 
   time_direct = -1
 

@@ -31,7 +31,7 @@
     ENDIF
 
     ! apply avg to all maps except the last one
-    IF (s /= kernel_obj%num_scales) then
+    IF (s /= kernel_obj%num_scales) THEN
 
       IF (kernel_obj%use_smoothing) THEN
         ! optionally smoothen density

@@ -3,7 +3,7 @@ PROGRAM example
   USE modutils
   USE modio
   USE modapproxkernel2d
-  use modvslconv2d
+  USE modvslconv2d
   IMPLICIT NONE
   INTEGER, PARAMETER :: dtype = 8
 
@@ -35,7 +35,7 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
   TYPE(ApproxDKernel2D) :: approx_kernel
   TYPE(VSLDConv2D) :: conv2d_fft, conv2d_direct
   INTEGER :: i, j, num_samples, height
-  REAL(KIND=dtype) :: radius, cx, cy, time, error
+  REAL(KIND=dtype) :: radius, cx, cy, time, ERROR
 
   ALLOCATE(input_x(width, width), output_x(width, width), exact_output_x(width, width))
   ALLOCATE(fft_kernel(2 * width + 1, 2 * width + 1))
@@ -54,8 +54,8 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
     END DO
   END DO
 
-  call initvslconv2d(conv2d_fft, fft_kernel, [width, height], mode=VSL_CONV_MODE_FFT)
-  call initvslconv2d(conv2d_direct, fft_kernel, [width, height], mode=VSL_CONV_MODE_DIRECT)
+  CALL initvslconv2d(conv2d_fft, fft_kernel, [width, height], mode=VSL_CONV_MODE_FFT)
+  CALL initvslconv2d(conv2d_direct, fft_kernel, [width, height], mode=VSL_CONV_MODE_DIRECT)
 
   CALL RANDOM_NUMBER(input_x)
   input_x = input_x / 100
@@ -82,8 +82,8 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
     CALL execapproxkernel2d(approx_kernel, input_x, output_x)
   ENDDO
   time  = get_clock() * 1000 / num_samples
-  error = abs_error(output_x, exact_output_x)
-  PRINT"(A15,f12.4,A,f12.4)"," Time approx", time, "[ms]   Error:", error
+  ERROR = abs_error(output_x, exact_output_x)
+  PRINT"(A15,f12.4,A,f12.4)"," Time approx", time, "[ms]   Error:", ERROR
 
   DO i = 1, 5
     CALL execvslconv2d(conv2d_fft, input_x, output_x)
@@ -93,8 +93,8 @@ SUBROUTINE benchmark_methods(kernels_file, num_scales, kernel_size, width)
     CALL execvslconv2d(conv2d_fft, input_x, output_x)
   ENDDO
   time  = get_clock() * 1000 / num_samples
-  error = abs_error(output_x, exact_output_x)
-  PRINT"(A15,f12.4,A,f12.4)"," Time ML fft", time, "[ms]   Error:", error
+  ERROR = abs_error(output_x, exact_output_x)
+  PRINT"(A15,f12.4,A,f12.4)"," Time ML fft", time, "[ms]   Error:", ERROR
 
 
   DEALLOCATE(input_x, output_x, exact_output_x, fft_kernel, kernels)
@@ -107,8 +107,8 @@ END SUBROUTINE
 REAL(KIND=dtype) FUNCTION abs_error(a, b) RESULT(eval)
   REAL(KIND=dtype), DIMENSION(:, :) :: a, b
   INTEGER :: width, height
-  width = size(a, 1)
-  height = size(a, 2)
+  width = SIZE(a, 1)
+  height = SIZE(a, 2)
   eval = SUM(ABS(a - b)) / width / height
 END FUNCTION
 
@@ -140,8 +140,8 @@ SUBROUTINE coulomb_integral(density, potential)
   REAL(KIND=dtype) :: current_value, radius
   REAL(KIND=dtype), DIMENSION(2) :: vector_r
 
-  width = size(potential, 1)
-  height = size(potential, 2)
+  width = SIZE(potential, 1)
+  height = SIZE(potential, 2)
 
   potential = 0.0
   DO i = 1, width

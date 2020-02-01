@@ -2256,18 +2256,18 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vslConvSetInternalPrecision( task, precision )
+        INTEGER FUNCTION vslConvSetInternalPrecision( task, PRECISION )
             USE MKL_VSL_TYPE
           TYPE(VSL_CONV_TASK) :: task
-          INTEGER             :: precision
+          INTEGER             :: PRECISION
         END FUNCTION
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vslCorrSetInternalPrecision( task, precision )
+        INTEGER FUNCTION vslCorrSetInternalPrecision( task, PRECISION )
             USE MKL_VSL_TYPE
           TYPE(VSL_CORR_TASK) :: task
-          INTEGER             :: precision
+          INTEGER             :: PRECISION
         END FUNCTION
       END INTERFACE
 
@@ -2614,10 +2614,10 @@
 
 !  Uniform distribution
       INTERFACE
-        INTEGER FUNCTION vsrnguniform( method, stream, n, r, a, b )
+        INTEGER FUNCTION vsrnguniform( method, STREAM, n, r, a, b )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2626,10 +2626,10 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnguniform( method, stream, n, r, a, b )
+        INTEGER FUNCTION vdrnguniform( method, STREAM, n, r, a, b )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2639,10 +2639,10 @@
 
 !  Gaussian distribution
       INTERFACE
-        INTEGER FUNCTION vsrnggaussian( method, stream, n, r, a, sigma)
+        INTEGER FUNCTION vsrnggaussian( method, STREAM, n, r, a, sigma)
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2651,10 +2651,10 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnggaussian( method, stream, n, r, a, sigma)
+        INTEGER FUNCTION vdrnggaussian( method, STREAM, n, r, a, sigma)
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2664,11 +2664,11 @@
 
 !  GaussianMV distribution
       INTERFACE
-        INTEGER FUNCTION vsrnggaussianmv( method, stream, n, r, dimen,  &
+        INTEGER FUNCTION vsrnggaussianmv( method, STREAM, n, r, dimen,  &
      &                              mstorage, a, t )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           INTEGER,INTENT(IN)       :: dimen
           REAL(KIND=4),INTENT(OUT) :: r(dimen,n)
@@ -2679,11 +2679,11 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnggaussianmv( method, stream, n, r, dimen,  &
+        INTEGER FUNCTION vdrnggaussianmv( method, STREAM, n, r, dimen,  &
      &                              mstorage, a, t )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           INTEGER,INTENT(IN)       :: dimen
@@ -2695,11 +2695,11 @@
 
 !  Exponential distribution
       INTERFACE
-        INTEGER FUNCTION vsrngexponential( method, stream, n, r, a,     &
+        INTEGER FUNCTION vsrngexponential( method, STREAM, n, r, a,     &
      &                                     beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2708,11 +2708,11 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrngexponential( method, stream, n, r, a,     &
+        INTEGER FUNCTION vdrngexponential( method, STREAM, n, r, a,     &
      &                                     beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2722,10 +2722,10 @@
 
 !  Laplace distribution
       INTERFACE
-        INTEGER FUNCTION vsrnglaplace( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vsrnglaplace( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2734,10 +2734,10 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnglaplace( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vdrnglaplace( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2747,11 +2747,11 @@
 
 !  Weibull distribution
       INTERFACE
-        INTEGER FUNCTION vsrngweibull( method, stream, n, r, alpha, a,  &
+        INTEGER FUNCTION vsrngweibull( method, STREAM, n, r, alpha, a,  &
      &                                 beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: alpha
@@ -2761,11 +2761,11 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrngweibull( method, stream, n, r, alpha, a,  &
+        INTEGER FUNCTION vdrngweibull( method, STREAM, n, r, alpha, a,  &
      &                                 beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: alpha
@@ -2776,10 +2776,10 @@
 
 !  Cauchy distribution
       INTERFACE
-        INTEGER FUNCTION vsrngcauchy( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vsrngcauchy( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2788,10 +2788,10 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrngcauchy( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vdrngcauchy( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2801,10 +2801,10 @@
 
 !  Rayleigh distribution
       INTERFACE
-        INTEGER FUNCTION vsrngrayleigh( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vsrngrayleigh( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2813,10 +2813,10 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrngrayleigh( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vdrngrayleigh( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2826,11 +2826,11 @@
 
 !  Lognormal distribution
       INTERFACE
-        INTEGER FUNCTION vsrnglognormal( method, stream, n, r, a,sigma, &
+        INTEGER FUNCTION vsrnglognormal( method, STREAM, n, r, a,sigma, &
      &                             b, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2841,11 +2841,11 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnglognormal( method, stream, n, r, a,sigma, &
+        INTEGER FUNCTION vdrnglognormal( method, STREAM, n, r, a,sigma, &
      &                             b, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2857,10 +2857,10 @@
 
 !  Gumbel distribution
       INTERFACE
-        INTEGER FUNCTION vsrnggumbel( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vsrnggumbel( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: a
@@ -2869,10 +2869,10 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnggumbel( method, stream, n, r, a, beta )
+        INTEGER FUNCTION vdrnggumbel( method, STREAM, n, r, a, beta )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: a
@@ -2882,11 +2882,11 @@
 
 !  Gamma distribution
       INTERFACE
-        INTEGER FUNCTION vsrnggamma( method, stream, n, r, alpha, a,    &
+        INTEGER FUNCTION vsrnggamma( method, STREAM, n, r, alpha, a,    &
      &                               beta )
           USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: alpha
@@ -2896,11 +2896,11 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrnggamma( method, stream, n, r, alpha, a,    &
+        INTEGER FUNCTION vdrnggamma( method, STREAM, n, r, alpha, a,    &
      &                               beta )
           USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: alpha
@@ -2911,11 +2911,11 @@
 
 !  Beta distribution
       INTERFACE
-        INTEGER FUNCTION vsrngbeta( method, stream, n, r, p, q, a,      &
+        INTEGER FUNCTION vsrngbeta( method, STREAM, n, r, p, q, a,      &
      &                              beta )
           USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=4),INTENT(IN)  :: p
@@ -2926,11 +2926,11 @@
       END INTERFACE
 
       INTERFACE
-        INTEGER FUNCTION vdrngbeta( method, stream, n, r, p, q, a,      &
+        INTEGER FUNCTION vdrngbeta( method, STREAM, n, r, p, q, a,      &
      &                              beta )
           USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)       :: method
-          TYPE(VSL_STREAM_STATE)   :: stream
+          TYPE(VSL_STREAM_STATE)   :: STREAM
           INTEGER,INTENT(IN)       :: n
           REAL(KIND=8),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)  :: p
@@ -2946,10 +2946,10 @@
 
 !  Uniform distribution
       INTERFACE
-        INTEGER FUNCTION virnguniform( method, stream, n, r, a, b )
+        INTEGER FUNCTION virnguniform( method, STREAM, n, r, a, b )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           INTEGER(KIND=4),INTENT(IN)  :: a
@@ -2959,10 +2959,10 @@
 
 !  UniformBits distribution
       INTERFACE
-        INTEGER FUNCTION virnguniformbits( method, stream, n, r )
+        INTEGER FUNCTION virnguniformbits( method, STREAM, n, r )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
         END FUNCTION
@@ -2970,10 +2970,10 @@
 
 !  UniformBits32 distribution
       INTERFACE
-        INTEGER FUNCTION virnguniformbits32( method, stream, n, r )
+        INTEGER FUNCTION virnguniformbits32( method, STREAM, n, r )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
         END FUNCTION
@@ -2981,10 +2981,10 @@
 
 !  UniformBits64 distribution
       INTERFACE
-        INTEGER FUNCTION virnguniformbits64( method, stream, n, r )
+        INTEGER FUNCTION virnguniformbits64( method, STREAM, n, r )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=8),INTENT(OUT) :: r(n)
         END FUNCTION
@@ -2992,10 +2992,10 @@
 
 !  Bernoulli distribution
       INTERFACE
-        INTEGER FUNCTION virngbernoulli( method, stream, n, r, p )
+        INTEGER FUNCTION virngbernoulli( method, STREAM, n, r, p )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)     :: p
@@ -3004,10 +3004,10 @@
 
 !  Geometric distribution
       INTERFACE
-        INTEGER FUNCTION virnggeometric( method, stream, n, r, p )
+        INTEGER FUNCTION virnggeometric( method, STREAM, n, r, p )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)     :: p
@@ -3016,10 +3016,10 @@
 
 !  Binomial distribution
       INTERFACE
-        INTEGER FUNCTION virngbinomial(method, stream, n, r, ntrial, p)
+        INTEGER FUNCTION virngbinomial(method, STREAM, n, r, ntrial, p)
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           INTEGER(KIND=4),INTENT(IN)  :: ntrial
@@ -3029,11 +3029,11 @@
 
 !  Hypergeometric distribution
       INTERFACE
-        INTEGER FUNCTION virnghypergeometric( method, stream, n, r, l,  &
+        INTEGER FUNCTION virnghypergeometric( method, STREAM, n, r, l,  &
      &                                        s, m )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           INTEGER(KIND=4),INTENT(IN)  :: l
@@ -3044,10 +3044,10 @@
 
 !  Poisson distribution
       INTERFACE
-        INTEGER FUNCTION virngpoisson( method, stream, n, r, lambda )
+        INTEGER FUNCTION virngpoisson( method, STREAM, n, r, lambda )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)     :: lambda
@@ -3056,10 +3056,10 @@
 
 !  PoissonV distribution
       INTERFACE
-        INTEGER FUNCTION virngpoissonv( method, stream, n, r, lambda )
+        INTEGER FUNCTION virngpoissonv( method, STREAM, n, r, lambda )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)     :: lambda(n)
@@ -3068,10 +3068,10 @@
 
 !  Negbinomial distribution
       INTERFACE
-        INTEGER FUNCTION virngnegbinomial( method, stream, n, r, a, p )
+        INTEGER FUNCTION virngnegbinomial( method, STREAM, n, r, a, p )
             USE MKL_VSL_TYPE
           INTEGER,INTENT(IN)          :: method
-          TYPE(VSL_STREAM_STATE)      :: stream
+          TYPE(VSL_STREAM_STATE)      :: STREAM
           INTEGER,INTENT(IN)          :: n
           INTEGER(KIND=4),INTENT(OUT) :: r(n)
           REAL(KIND=8),INTENT(IN)     :: a
@@ -3085,9 +3085,9 @@
 
 ! NewStream - stream creation/initialization
       INTERFACE
-        INTEGER FUNCTION vslnewstream( stream, brng, seed )
+        INTEGER FUNCTION vslnewstream( STREAM, brng, seed )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE) :: stream
+          TYPE(VSL_STREAM_STATE) :: STREAM
           INTEGER,INTENT(IN)     :: brng
           INTEGER,INTENT(IN)     :: seed
         END FUNCTION
@@ -3095,9 +3095,9 @@
 
 ! NewStreamEx - advanced stream creation/initialization
       INTERFACE
-        INTEGER FUNCTION vslnewstreamex( stream, brng, n, params )
+        INTEGER FUNCTION vslnewstreamex( STREAM, brng, n, params )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE)     :: stream
+          TYPE(VSL_STREAM_STATE)     :: STREAM
           INTEGER,INTENT(IN)         :: brng
           INTEGER,INTENT(IN)         :: n
           INTEGER(KIND=4),INTENT(IN) :: params(n)
@@ -3106,9 +3106,9 @@
 
 !    INEWABSTRACTSTREAM
       INTERFACE
-        INTEGER FUNCTION vslinewabstractstream( stream, n, ibuf, ifunc)
+        INTEGER FUNCTION vslinewabstractstream( STREAM, n, ibuf, ifunc)
           USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE),INTENT(OUT) :: stream
+          TYPE(VSL_STREAM_STATE),INTENT(OUT) :: STREAM
           INTEGER,INTENT(IN)                 :: n
           INTEGER(KIND=4),INTENT(IN)         :: ibuf(n)
           INTEGER(KIND=4),EXTERNAL           :: ifunc
@@ -3117,10 +3117,10 @@
 
 !    DNEWABSTRACTSTREAM
       INTERFACE
-        INTEGER FUNCTION vsldnewabstractstream( stream, n, dbuf, a, b,  &
+        INTEGER FUNCTION vsldnewabstractstream( STREAM, n, dbuf, a, b,  &
      &                                          dfunc )
           USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE),INTENT(OUT) :: stream
+          TYPE(VSL_STREAM_STATE),INTENT(OUT) :: STREAM
           INTEGER,INTENT(IN)                 :: n
           REAL(KIND=8)   ,INTENT(IN)         :: dbuf(n)
           REAL(KIND=8)   ,INTENT(IN)         :: a
@@ -3131,10 +3131,10 @@
 
 !    SNEWABSTRACTSTREAM
       INTERFACE
-        INTEGER FUNCTION vslsnewabstractstream( stream, n, sbuf, a, b,  &
+        INTEGER FUNCTION vslsnewabstractstream( STREAM, n, sbuf, a, b,  &
      &                                          sfunc )
           USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE),INTENT(OUT) :: stream
+          TYPE(VSL_STREAM_STATE),INTENT(OUT) :: STREAM
           INTEGER,INTENT(IN)                 :: n
           REAL(KIND=4)   ,INTENT(IN)         :: sbuf(n)
           REAL(KIND=4)   ,INTENT(IN)         :: a
@@ -3145,9 +3145,9 @@
 
 ! DeleteStream - delete stream
       INTERFACE
-        INTEGER FUNCTION vsldeletestream( stream )
+        INTEGER FUNCTION vsldeletestream( STREAM )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE) :: stream
+          TYPE(VSL_STREAM_STATE) :: STREAM
         END FUNCTION
       END INTERFACE
 
@@ -3171,9 +3171,9 @@
 
 ! LeapfrogStream - leapfrog method
       INTERFACE
-        INTEGER FUNCTION vslleapfrogstream( stream, k, nstreams )
+        INTEGER FUNCTION vslleapfrogstream( STREAM, k, nstreams )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE) :: stream
+          TYPE(VSL_STREAM_STATE) :: STREAM
           INTEGER,INTENT(IN)     :: k
           INTEGER,INTENT(IN)     :: nstreams
         END FUNCTION
@@ -3181,9 +3181,9 @@
 
 ! SkipAheadStream - skip-ahead method
       INTERFACE
-        INTEGER FUNCTION vslskipaheadstream( stream, nskip )
+        INTEGER FUNCTION vslskipaheadstream( STREAM, nskip )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE)     :: stream
+          TYPE(VSL_STREAM_STATE)     :: STREAM
           INTEGER(KIND=8),INTENT(IN) :: nskip
         END FUNCTION
       END INTERFACE
@@ -3205,9 +3205,9 @@
 
 ! GetStreamStateBrng - get BRNG associated with given stream
       INTERFACE
-        INTEGER FUNCTION vslgetstreamstatebrng( stream )
+        INTEGER FUNCTION vslgetstreamstatebrng( STREAM )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE) :: stream
+          TYPE(VSL_STREAM_STATE) :: STREAM
         END FUNCTION
       END INTERFACE
 
@@ -3221,45 +3221,45 @@
 
 ! SaveStreamF - save stream to file
       INTERFACE
-        INTEGER FUNCTION vslsavestreamf( stream, fname )
+        INTEGER FUNCTION vslsavestreamf( STREAM, fname )
             USE MKL_VSL_TYPE
           CHARACTER(*)           :: fname
-          TYPE(VSL_STREAM_STATE) :: stream
+          TYPE(VSL_STREAM_STATE) :: STREAM
         END FUNCTION
       END INTERFACE
 
 ! LoadStreamF - save stream to file
       INTERFACE
-        INTEGER FUNCTION vslloadstreamf( stream, fname )
+        INTEGER FUNCTION vslloadstreamf( STREAM, fname )
             USE MKL_VSL_TYPE
           CHARACTER(*)           :: fname
-          TYPE(VSL_STREAM_STATE) :: stream
+          TYPE(VSL_STREAM_STATE) :: STREAM
         END FUNCTION
       END INTERFACE
 
 ! SaveStreamM - save stream to memory
       INTERFACE
-        INTEGER FUNCTION vslsavestreamm( stream, memptr )
+        INTEGER FUNCTION vslsavestreamm( STREAM, memptr )
             USE MKL_VSL_TYPE
           INTEGER(KIND=1),DIMENSION(*),INTENT(OUT)::memptr
-          TYPE(VSL_STREAM_STATE),INTENT(IN)       :: stream
+          TYPE(VSL_STREAM_STATE),INTENT(IN)       :: STREAM
         END FUNCTION
       END INTERFACE
 
 ! LoadStreamM - load stream from memory
       INTERFACE
-        INTEGER FUNCTION vslloadstreamm( stream, memptr )
+        INTEGER FUNCTION vslloadstreamm( STREAM, memptr )
             USE MKL_VSL_TYPE
           INTEGER(KIND=1),DIMENSION(*),INTENT(IN)::memptr
-          TYPE(VSL_STREAM_STATE),INTENT(OUT)      ::stream
+          TYPE(VSL_STREAM_STATE),INTENT(OUT)      ::STREAM
         END FUNCTION
       END INTERFACE
 
 ! GetStreamSize - get size of random stream
       INTERFACE
-        INTEGER FUNCTION vslgetstreamsize( stream )
+        INTEGER FUNCTION vslgetstreamsize( STREAM )
             USE MKL_VSL_TYPE
-          TYPE(VSL_STREAM_STATE),INTENT(IN) :: stream
+          TYPE(VSL_STREAM_STATE),INTENT(IN) :: STREAM
         END FUNCTION
       END INTERFACE
 
@@ -3299,28 +3299,28 @@
 
 !  Editor to modify a task parameter
       INTERFACE
-       INTEGER FUNCTION vsldssedittask(task,parameter,par_addr)
+       INTEGER FUNCTION vsldssedittask(task,PARAMETER,par_addr)
                  USE MKL_VSL_TYPE
              TYPE(VSL_SS_TASK)                    :: task
-             INTEGER,INTENT(IN)                   :: parameter
+             INTEGER,INTENT(IN)                   :: PARAMETER
              REAL(KIND=8),DIMENSION(*),INTENT(IN) :: par_addr
        END FUNCTION
       END INTERFACE
 
       INTERFACE
-       INTEGER FUNCTION vslsssedittask(task,parameter,par_addr)
+       INTEGER FUNCTION vslsssedittask(task,PARAMETER,par_addr)
                  USE MKL_VSL_TYPE
              TYPE(VSL_SS_TASK)                    :: task
-             INTEGER,INTENT(IN)                   :: parameter
+             INTEGER,INTENT(IN)                   :: PARAMETER
              REAL(KIND=4),DIMENSION(*),INTENT(IN) :: par_addr
         END FUNCTION
        END INTERFACE
 
       INTERFACE
-       INTEGER FUNCTION vslissedittask(task,parameter,par_addr)
+       INTEGER FUNCTION vslissedittask(task,PARAMETER,par_addr)
                  USE MKL_VSL_TYPE
              TYPE(VSL_SS_TASK)               :: task
-             INTEGER,INTENT(IN)              :: parameter
+             INTEGER,INTENT(IN)              :: PARAMETER
              INTEGER,INTENT(IN)              :: par_addr
        END FUNCTION
       END INTERFACE
@@ -3361,11 +3361,11 @@
 
 !  Editors to modify sums related parameters
       INTERFACE
-       INTEGER FUNCTION vsldsseditsums(task, sum, r2s, r3s, r4s,         &
+       INTEGER FUNCTION vsldsseditsums(task, SUM, r2s, r3s, r4s,         &
      &                                                c2s, c3s, c4s)
                USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                             :: task
-              REAL(KIND=8),DIMENSION(*),INTENT(IN)          :: sum
+              REAL(KIND=8),DIMENSION(*),INTENT(IN)          :: SUM
               REAL(KIND=8),DIMENSION(*),INTENT(IN),OPTIONAL :: r2s
               REAL(KIND=8),DIMENSION(*),INTENT(IN),OPTIONAL :: r3s
               REAL(KIND=8),DIMENSION(*),INTENT(IN),OPTIONAL :: r4s
@@ -3376,11 +3376,11 @@
       END INTERFACE
 
       INTERFACE
-       INTEGER FUNCTION vslssseditsums(task, sum, r2s, r3s, r4s,         &
+       INTEGER FUNCTION vslssseditsums(task, SUM, r2s, r3s, r4s,         &
      &                                                c2s, c3s, c4s)
                USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                             :: task
-              REAL(KIND=4),DIMENSION(*),INTENT(IN)          :: sum
+              REAL(KIND=4),DIMENSION(*),INTENT(IN)          :: SUM
               REAL(KIND=4),DIMENSION(*),INTENT(IN),OPTIONAL :: r2s
               REAL(KIND=4),DIMENSION(*),INTENT(IN),OPTIONAL :: r3s
               REAL(KIND=4),DIMENSION(*),INTENT(IN),OPTIONAL :: r4s
@@ -3421,24 +3421,24 @@
 !  Editors to modify cross-product matrix
 !  related parameters
       INTERFACE
-       INTEGER FUNCTION vsldsseditcp(task, mean, sum,                    &
+       INTEGER FUNCTION vsldsseditcp(task, mean, SUM,                    &
      &                                              cp, cp_storage)
                   USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                              :: task
               REAL(KIND=8),DIMENSION(*),INTENT(IN)           :: mean
-              REAL(KIND=8),DIMENSION(*),INTENT(IN), OPTIONAL :: sum
+              REAL(KIND=8),DIMENSION(*),INTENT(IN), OPTIONAL :: SUM
               REAL(KIND=8),DIMENSION(*),INTENT(IN)           :: cp
               INTEGER,INTENT(IN)                          :: cp_storage
        END FUNCTION
       END INTERFACE
 
       INTERFACE
-       INTEGER FUNCTION vslssseditcp(task, mean, sum,                    &
+       INTEGER FUNCTION vslssseditcp(task, mean, SUM,                    &
      &                                              cp, cp_storage)
                   USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                              :: task
               REAL(KIND=4),DIMENSION(*),INTENT(IN)           :: mean
-              REAL(KIND=4),DIMENSION(*),INTENT(IN), OPTIONAL :: sum
+              REAL(KIND=4),DIMENSION(*),INTENT(IN), OPTIONAL :: SUM
               REAL(KIND=4),DIMENSION(*),INTENT(IN)           :: cp
               INTEGER,INTENT(IN)                          :: cp_storage
        END FUNCTION
@@ -3490,7 +3490,7 @@
                   USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                         :: task
               INTEGER,INTENT(IN),OPTIONAL               :: quant_order_n
-              REAL(KIND=8),INTENT(IN),dimension(*),OPTIONAL::quant_order
+              REAL(KIND=8),INTENT(IN),DIMENSION(*),OPTIONAL::quant_order
               REAL(KIND=8),DIMENSION(*),INTENT(IN),OPTIONAL::quants
               REAL(KIND=8),DIMENSION(*),INTENT(IN),OPTIONAL ::           &
      &                                                     order_stats
@@ -3505,7 +3505,7 @@
                   USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                         :: task
               INTEGER,INTENT(IN),OPTIONAL               :: quant_order_n
-              REAL(KIND=4),INTENT(IN),dimension(*),OPTIONAL::quant_order
+              REAL(KIND=4),INTENT(IN),DIMENSION(*),OPTIONAL::quant_order
               REAL(KIND=4),DIMENSION(*),INTENT(IN),OPTIONAL::quants
               REAL(KIND=4),DIMENSION(*),INTENT(IN),OPTIONAL ::           &
      &                                                     order_stats
@@ -3521,7 +3521,7 @@
                   USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                     :: task
               INTEGER,INTENT(IN)                    :: quant_order_n
-              REAL(KIND=8),INTENT(IN),dimension(*)  :: quant_order
+              REAL(KIND=8),INTENT(IN),DIMENSION(*)  :: quant_order
               REAL(KIND=8),DIMENSION(*),INTENT(IN)  :: quants
               INTEGER,INTENT(IN)                    :: nparams
               REAL(KIND=8),INTENT(IN), DIMENSION(*) :: params
@@ -3534,7 +3534,7 @@
                   USE MKL_VSL_TYPE
               TYPE(VSL_SS_TASK)                     :: task
               INTEGER,INTENT(IN)                    :: quant_order_n
-              REAL(KIND=4),INTENT(IN),dimension(*)  :: quant_order
+              REAL(KIND=4),INTENT(IN),DIMENSION(*)  :: quant_order
               REAL(KIND=4),DIMENSION(*),INTENT(IN)  :: quants
               INTEGER,INTENT(IN)                    :: nparams
               REAL(KIND=4),INTENT(IN), DIMENSION(*) :: params

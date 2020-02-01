@@ -12,7 +12,7 @@
   params => this%params
   kernel_shape = SHAPE(kernel)
   !print*,"[INFO] Initializing Conv2D with kernel: ", kernel_shape
-  call init_conv2d(params, kernel_shape, input_shape, mode)
+  CALL init_conv2d(params, kernel_shape, input_shape, mode)
 
   ALLOCATE(this%kernel(kernel_shape(1), kernel_shape(2)))
   this%kernel = kernel

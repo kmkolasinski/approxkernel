@@ -110,7 +110,7 @@ SUBROUTINE coulomb_integral(density, potential)
   REAL(KIND=dtype) :: current_value, radius
   REAL(KIND=dtype), DIMENSION(2) :: vector_r
 
-  array_shape = shape(density)
+  array_shape = SHAPE(density)
   width = array_shape(1)
   height = array_shape(2)
 

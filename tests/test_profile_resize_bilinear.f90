@@ -11,32 +11,32 @@ PROGRAM example
   REAL(dtype), DIMENSION(:, :), ALLOCATABLE :: output1
   REAL(dtype), DIMENSION(:, :), ALLOCATABLE :: output2
 
-  allocate(input(N_from, N_from))
-  allocate(output1(N_to, N_to))
-  allocate(output2(N_to, N_to))
+  ALLOCATE(input(N_from, N_from))
+  ALLOCATE(output1(N_to, N_to))
+  ALLOCATE(output2(N_to, N_to))
 
-  do i = 1, N_from
-    do j = 1, N_from
-      call random_number(x)
+  DO i = 1, N_from
+    DO j = 1, N_from
+      CALL RANDOM_NUMBER(x)
       input(i, j) = x
-    end do
-  end do
+    END DO
+  END DO
 
   K = 1000
   CALL reset_clock()
-  do i = 1, K
-    call resizebilinear2d(input, output1)
-  enddo
+  DO i = 1, K
+    CALL resizebilinear2d(input, output1)
+  ENDDO
   time  = get_clock() * 1000
 
   PRINT"(A15,f12.4,A,f12.4)"," Time old", time / K, "[ms] "
 
   CALL reset_clock()
-  do i = 1, K
-    call upsample2x2(input, output2)
-  enddo
+  DO i = 1, K
+    CALL upsample2x2(input, output2)
+  ENDDO
   time  = get_clock() * 1000
-  x = sum(abs(output1 - output2))
+  x = SUM(ABS(output1 - output2))
   PRINT"(A15,f12.4,A,f12.4)"," Time new", time / K, "[ms]   Error:", x
 
 

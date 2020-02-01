@@ -72,7 +72,7 @@ CONTAINS
 
 
   ! Return string formatted date
-  CHARACTER(20) FUNCTION get_date() result(rval)
+  CHARACTER(20) FUNCTION get_date() RESULT(rval)
     CHARACTER(8)  :: DATE
     CHARACTER(10) :: time
     CHARACTER(5)  :: zone

@@ -4,7 +4,7 @@
   DTYPE, DIMENSION (:, :), ALLOCATABLE, INTENT (OUT) :: kernels
 
   PRINT*, "[INFO] Reading 1D kernels ..."
-  IF (allocated(kernels)) deallocate(kernels)
+  IF (ALLOCATED(kernels)) DEALLOCATE(kernels)
   ALLOCATE(kernels(num_kernels, kernel_size))
-  call read_array_2d(filename, num_kernels, kernel_size, kernels)
+  CALL read_array_2d(filename, num_kernels, kernel_size, kernels)
 !  END SUBROUTINE read_kernels_1d

@@ -27,7 +27,7 @@ PROGRAM demo
 
   ! create complex random matrix
   CALL RANDOM_NUMBER(rho)
-  print*, "min/max rho:", minval(rho), maxval(rho)
+  PRINT*, "min/max rho:", MINVAL(rho), MAXVAL(rho)
   cmplx_rho = rho
   CALL RANDOM_NUMBER(rho)
   cmplx_rho = cmplx_rho + CMPLX(0.0, 1.0) * rho
@@ -38,18 +38,18 @@ PROGRAM demo
   CALL execapproxkernel2d(double_coulomb, rho, potential)
   error_value = SUM(ABS(DBLE(cmplx_potential) - potential)) / width / height
   PRINT*, "real part difference:", error_value
-  if (error_value > 1e-12) then
+  IF (error_value > 1e-12) THEN
       STOP(-1)
-  end if
+  END IF
 
   rho = IMAG(cmplx_rho)
   CALL execapproxkernel2d(double_coulomb, rho, potential)
   error_value = SUM(ABS(IMAG(cmplx_potential) - potential)) / width / height
   PRINT*, "imag part difference:", error_value
-  if (error_value > 1e-12) then
+  IF (error_value > 1e-12) THEN
       PRINT*, "ERROR: imag part difference:", error_value
       STOP(-1)
-  end if
+  END IF
 
   CALL deleteapproxkernel2d(double_coulomb)
   CALL deleteapproxkernel2d(cmplx_coulomb)

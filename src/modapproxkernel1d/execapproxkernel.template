@@ -17,13 +17,13 @@
     CALL execvslconv1d(kernel_obj%kernels_convs(s), &
       tmp_input, kernel_obj%outputs(s)%array)
 
-    if (any(shape(kernel_obj%outputs(s)%array) /= shape(tmp_input))) then
-      print("(A, 2i5, A, 2i5, A, 2i5)"), &
+    IF (ANY(SHAPE(kernel_obj%outputs(s)%array) /= SHAPE(tmp_input))) THEN
+      PRINT("(A, 2i5, A, 2i5, A, 2i5)"), &
           " [ERROR] Shape missmatch: scale=", s, &
-          "output shape=", shape(kernel_obj%outputs(s)%array), &
-          "input shape=", shape(tmp_input)
-      stop -1
-    end if
+          "output shape=", SHAPE(kernel_obj%outputs(s)%array), &
+          "input shape=", SHAPE(tmp_input)
+      STOP -1
+    END IF
     ! same as: h' = resize(h, shape(input))
     CALL resizebilinear1d(kernel_obj%outputs(s)%array, tmp_output)
     ! output +=  h'

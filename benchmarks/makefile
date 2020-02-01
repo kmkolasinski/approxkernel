@@ -34,8 +34,11 @@ BUILD_F90_OBJECTS=$(patsubst %.o,$(BUILD_DIR)%.o,$(F90_OBJECTS))
 run_ifort_benchmark: run_ifort_benchmark.f90
 	$(FF) $(FOPT) -I../include/  run_ifort_benchmark.f90 $(LDFLAGS) -o $@
 
+coulomb2d_benchmark: coulomb2d_benchmark.f90
+	$(FF) $(FOPT) -I../include/  coulomb2d_benchmark.f90 $(LDFLAGS) -o $@
+
 
 clean:
 	rm -f *.txt *.dat  *.xml *.png *.pdf fort.*  2> /dev/null
 	rm -f loop_prof_*  2> /dev/null
-	rm -f run_ifort_benchmark 2> /dev/null
+	rm -f run_ifort_benchmark coulomb2d_benchmark 2> /dev/null
