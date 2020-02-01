@@ -21,12 +21,14 @@ PROGRAM example
   print*, "MKL_NUM_THREADS=", MKL_NUM_THREADS
   print*, "         RUN_ID=", RUN_ID
 
-  WRITE(filename, *), "results/ifort-pegasus-cpu-fft-ncpus=", trim(MKL_NUM_THREADS), ".txt"
+!  WRITE(filename, *), "results/ifort-pegasus-cpu-fft-ncpus=", trim(MKL_NUM_THREADS), ".txt"
+!  call run_benchmark(trim(filename), RUN_ID, "fft", mode=VSL_CONV_MODE_FFT)
+
+  filename = "results/ifort-pegasus-cpu-fft-default.txt"
   call run_benchmark(trim(filename), RUN_ID, "fft", mode=VSL_CONV_MODE_FFT)
 
-!  WRITE(filename, *), "results/ifort-pegasus-cpu-direct-ncpus=", trim(MKL_NUM_THREADS), ".txt"
-!  call run_benchmark(trim(filename), RUN_ID, "direct", mode=VSL_CONV_MODE_DIRECT)
-
+  filename = "results/ifort-pegasus-cpu-direct-default.txt"
+  call run_benchmark(trim(filename), RUN_ID, "direct", mode=VSL_CONV_MODE_DIRECT)
 CONTAINS
 
   subroutine run_benchmark(filename, run, tag, mode)
@@ -47,7 +49,6 @@ CONTAINS
       OPEN(UNIT=1, FILE=filename, ACCESS='APPEND')
     ENDIF
 
-
     do i = 1, NUM_GRID_SIZES
       do num_scales = 1, NUM_SCALES_SCAN
 
@@ -55,6 +56,10 @@ CONTAINS
         kernel_size = 4 * grid_size / 2**num_scales + 1
 
         if ( 2**num_scales > grid_size ) then
+          cycle
+        end if
+
+        if ( mode == VSL_CONV_MODE_DIRECT .and. kernel_size >= 512 ) then
           cycle
         end if
 
@@ -75,7 +80,6 @@ CONTAINS
 
         call reset_clock()
         do s = 1, NUM_BENCHMARK_STEPS
-          !call random_number(input_x)
           call execapproxkernel2d(coulomb, input_x, output_x)
         end do
         delta = get_clock() / NUM_BENCHMARK_STEPS
