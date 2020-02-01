@@ -75,7 +75,7 @@ CONTAINS
 
         call reset_clock()
         do s = 1, NUM_BENCHMARK_STEPS
-          call random_number(input_x)
+          !call random_number(input_x)
           call execapproxkernel2d(coulomb, input_x, output_x)
         end do
         delta = get_clock() / NUM_BENCHMARK_STEPS
