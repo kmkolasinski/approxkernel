@@ -8,5 +8,5 @@ kernel_fn_path: kernel.py
 train_config:
   initial_lr: 0.003
   lr_decay: 0.6
-  num_lr_steps: 6
-  steps_per_lr: 500
+  num_lr_steps: 7
+  steps_per_lr: 1000

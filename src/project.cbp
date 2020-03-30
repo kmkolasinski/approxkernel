@@ -95,6 +95,7 @@
 		<Compiler>
 			<Add option="-warn all" />
 		</Compiler>
+		<Unit filename="../benchmarks/coulomb2d_benchmark.f90" />
 		<Unit filename="../benchmarks/makefile" />
 		<Unit filename="../benchmarks/run_ifort_benchmark.f90" />
 		<Unit filename="../tests/benchmark_baseline_fft.f90" />
@@ -167,6 +168,10 @@
 		<Unit filename="modapproxkernel2d/execapproxkernel.template" />
 		<Unit filename="modapproxkernel2d/initapproxkernel.template" />
 		<Unit filename="modimageops1d.f90" />
+		<Unit filename="modimageops1d/averagepool2.template" />
+		<Unit filename="modimageops1d/averagepool2inplace.template" />
+		<Unit filename="modimageops1d/resizebilinear1d.template" />
+		<Unit filename="modimageops1d/resizebilinearinplace1d.template" />
 		<Unit filename="modimageops2d.f90" />
 		<Unit filename="modimageops2d/averagepool2x2.template" />
 		<Unit filename="modimageops2d/averagepool2x2inplace.template" />

@@ -17,10 +17,10 @@ setup(
     install_requires=[
         "pytest==4.3.0",
         "numpy==1.16.4",
-        "tensorflow==1.12.0",
-        "matplotlib==3.0.0",
+        "tensorflow==1.14.0",
+        "matplotlib==3.2.0",
         "tqdm==4.26.0",
-        "pyyaml==5.1",
+        "pyyaml==5.1.1",
     ],
     scripts=["scripts/fit_kernel"],
 )

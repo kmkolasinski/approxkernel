@@ -78,14 +78,15 @@ def plot_train_target_comparison(
     )
 
     target_predicted = results[0][0, :]
-    prediction_scales = results[1:]
+
+    np.savetxt(save_path.replace(".png", ".txt"), np.array([target, target_predicted]))
+
     error = 50 * (target_predicted - target)
     plt.figure(figsize=figsize)
     plt.plot(target, "k-", label="target")
     plt.plot(target_predicted, "b--", label="predicted")
     plt.plot(error, "r-", label="50x(error)")
-    # for scale in prediction_scales:
-    #     plt.plot(scale[0, :, 0], "--")
+
     plt.xlabel("x")
     plt.legend()
     plt.savefig(save_path)
